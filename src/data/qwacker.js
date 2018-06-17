@@ -57,11 +57,6 @@ class Qwacker {
     }
 
     onWaiting(info) {
-        console.log("onWaiting");
-        console.log(info);
-
-        console.log(new Date(info.nextGame));
-
         this._state = STATE_WAITING;
         this._next_game = info;
     }
@@ -127,10 +122,12 @@ class Qwacker {
             
             // Did we answer correctly :D
             if (this._game_info.round.prediction.best == roundInfo.conclusion.answer) {
-               this._game_info.conclusion.correct = true;
-               if (this._game_info.score != null) {
+                this._game_info.conclusion.correct = true;
+                if (this._game_info.score != null) {
                     this._game_info.score += 1;
-               }
+                }
+            } else {
+                this._game_info.conclusion.correct = false;
             }
         }
     }
