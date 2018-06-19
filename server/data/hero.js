@@ -1,10 +1,15 @@
+const WebSocket = require("ws");
+
 // Connecting to game server
 // Initial state while we wait
 // for the reporter to update us
-STATE_CONNECTING = "connecting";
+STATE_INITIALISING = "initialising";
 
 // Waiting for the next game
 STATE_WAITING = "waiting";
+
+// Game is starting soon
+STATE_STARTING = "starting";
 
 // Finding the answer
 STATE_THINKING = "thonking";
@@ -15,9 +20,37 @@ STATE_ANSWERED = "answered";
 // We are waiting for the next question
 STATE_IDLE = "idle"
 
-class Qwacker {
+class Hero {
     constructor() {
-        this._state = STATE_CONNECTING;
+        this._socketServer = new WebSocket.Server({
+            path:"/hero",
+            port: 8000,
+            perMessageDeflate: {
+                zlibDeflateOptions: { // See zlib defaults.
+                    chunkSize: 1024,
+                    memLevel: 7,
+                    level: 3,
+                },
+                zlibInflateOptions: {
+                    chunkSize: 10 * 1024
+                },
+                // Other options settable:
+                clientNoContextTakeover: true, // Defaults to negotiated value.
+                serverNoContextTakeover: true, // Defaults to negotiated value.
+                clientMaxWindowBits: 10,       // Defaults to negotiated value.
+                serverMaxWindowBits: 10,       // Defaults to negotiated value.
+                // Below options specified as default values.
+                concurrencyLimit: 10,          // Limits zlib concurrency for perf.
+                threshold: 1024,               // Size (in bytes) below which messages
+                                                // should not be compressed.
+            }
+        });
+
+        this._socketServer.on('connection', (client) => {
+            client.send(JSON.stringify(this.getStatus()));
+        });
+
+        this._state = STATE_INITIALISING;
 
         this._game_info = {
             score: 0,
@@ -28,16 +61,29 @@ class Qwacker {
         this._last_game = {};
     }
 
+    broadcastStatus() {
+        for (let client of this._socketServer.clients) {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify(this.getStatus()));
+            }
+        }
+    }
+
     getStatus() {
         switch(this._state) {
-            case STATE_CONNECTING:
-                return {status: STATE_CONNECTING}
+            case STATE_INITIALISING:
+                return {status: STATE_INITIALISING}
             
             case STATE_WAITING:
                 return {
                     status: STATE_WAITING,
                     info: this._next_game,
                     last: this._last_game
+                }
+            
+            case STATE_STARTING:
+                return {
+                    status: STATE_STARTING
                 }
             
             case STATE_ANSWERED:
@@ -57,26 +103,48 @@ class Qwacker {
     }
 
     onWaiting(info) {
+        // Save the last game info, as it looks like the game is over
+        if (this._game_info.numRounds) {
+            this._last_game = {score: this._game_info.score, rounds: this._game_info.numRounds}
+            this._game_info = null;
+        } 
+
         this._state = STATE_WAITING;
         this._next_game = info;
+        this.broadcastStatus();
     }
 
     onGameStarting() {
-        this._state = STATE_WAITING;
+        this._state = STATE_STARTING;
+        // Reset the game info
         this._game_info = {
             prize: this._next_game.prize,
             score: 0,
             numRounds: 0,
             round: {}
-        }
+        };
+        this.broadcastStatus();
     }
 
     onNewRound(roundInfo) {
         this._state = STATE_THINKING;
 
         this._game_info.numRounds = roundInfo.numRounds;
-        this._game_info.round = roundInfo.question
-        this._game_info.round.num = roundInfo.num    
+        this._game_info.round = {
+            question: roundInfo.question.question,
+            choices: [],
+            num: roundInfo.num,
+            analysis: null
+        };
+
+        for (let choice of roundInfo.question.choices) {
+            this._game_info.round.choices.push({
+                value: choice,
+                prediction: null,
+                best: false,
+            });
+        };
+        this.broadcastStatus();
     }
 
     onAnalysis(analysisInfo) {
@@ -95,6 +163,7 @@ class Qwacker {
 
         this._state = STATE_THINKING;
         this._game_info.round.analysis = analysisInfo.analysis;
+        this.broadcastStatus();
     }
 
     onPrediction(predictionInfo) {
@@ -110,27 +179,52 @@ class Qwacker {
             // For some reason we have no info, server restart?
             this._game_info.round = {};
         }
-
         this._state = STATE_ANSWERED;
-        this._game_info.round.prediction = predictionInfo.prediction;
+        
+        // Add the prediction to the choices
+        for (let answer in predictionInfo.prediction.answers) {
+            for (let choice of this._game_info.round.choices) {
+                if (choice.value == answer) {
+                    choice.prediction = Math.round(predictionInfo.prediction.answers[answer] * 100);
+                    choice.best = (predictionInfo.prediction.best == answer);
+                }
+            }
+        }
+
+        this._game_info.round.predictionSpeed = predictionInfo.speed;
+        this.broadcastStatus();
     }
 
     onRoundOver(roundInfo) {
         this._state = STATE_IDLE;
-        this._game_info.round.conclusion = roundInfo.conclusion;
+        //
+        if (!this._game_info.numRounds) {
+            return;
+        }
+        this._game_info.round.eleminated = roundInfo.conclusion.eleminated;
+        this._game_info.round.advancing = roundInfo.conclusion.advancing;
+        this._game_info.round.answer = roundInfo.conclusion.answer;
 
-        if (this._game_info.round.prediction) {
-            
-            // Did we answer correctly :D
-            if (this._game_info.round.prediction.best == roundInfo.conclusion.answer) {
-                this._game_info.round.conclusion.correct = true;
-                if (this._game_info.score != null) {
-                    this._game_info.score += 1;
+
+        for (let answer in roundInfo.conclusion.answers) {
+            for (let choice of this._game_info.round.choices) {
+                if (choice.value == answer) {
+                    choice.selections = roundInfo.conclusion.answers[answer];
+                    choice.correct = choice.value == roundInfo.conclusion.answer;
+                    if (choice.best) {
+                        if (choice.value == roundInfo.conclusion.answer) {
+                            this._game_info.round.correctPrediction = true;
+                            if (this._game_info.score != null) {
+                                this._game_info.score += 1;
+                            }
+                        } else {
+                            this._game_info.round.correctPrediction = false;
+                        }
+                    }
                 }
-            } else {
-                this._game_info.round.conclusion.correct = false;
             }
         }
+        this.broadcastStatus();
     }
 
     onGameFinished() {
@@ -138,7 +232,8 @@ class Qwacker {
         if (this._game_info.numRounds) {
             this._last_game = {score: this._game_info.score, rounds: this._game_info.numRounds}
         } 
+        this.broadcastStatus();
     }
 }
 
-module.exports = new Qwacker();
+module.exports = new Hero();

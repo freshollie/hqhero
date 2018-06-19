@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'hero',
@@ -9,42 +10,83 @@ import { HttpClient } from '@angular/common/http';
 export class HeroComponent implements OnInit {
 
   public status = "";
+  public wait = "";
+  public nextGameTime = null;
   public question = "";
   public choices: Object[] = [];
-
-  constructor(private http: HttpClient) { }
   
-  ngOnInit() {
-    setInterval(() => {this.tick()}, 100);
+  // Represents the connection status to the front-end
+  public connected = false;
+
+  // Represents if a connection is currently present
+  private connection = false;
+  private reconnectAttempts = 0;
+
+  private socket: WebSocket;
+
+  constructor(private http: HttpClient) {
+  }
+  
+  private getWebsocketUri(): string {
+    let loc = window.location, uri;
+    if (loc.protocol === "https:") {
+        uri = "wss://";
+    } else {
+      uri = "ws://";
+    }
+    uri += "" + loc.hostname + ":8000/hero";
+
+    return uri;
   }
 
-  tick() {
-    this.http.get("hero/status").subscribe(data => {
-      this.status = data["status"];
-      if (data["status"] == "connecting") {
-        return;
-      }
-      
-      if (data["game"] && data["game"]["round"] && data["game"]["round"]["question"]) {
-        this.question = data["game"]["round"]["question"];
-        this.choices = [];
+  private connect() {
+    this.socket = new WebSocket(this.getWebsocketUri());
 
-        for (let answer of data["game"]["round"]["choices"]) {
-          this.choices.push({answer: answer});
-        }
+    this.socket.onopen = () => {
+      this.reconnectAttempts = 0;
+      this.connected = true;
+      this.connection = true;
+    }
 
-        if (data["game"]["round"]["prediction"] != null) {
-          let prediction = data["game"]["round"]["prediction"];
-          for (let answer in prediction["answers"]) {
-            for (let choice of this.choices) {
-              if (choice["answer"] == answer) {
-                choice["prediction"] = Math.round(prediction["answers"][answer] * 100);
-                choice["best"] = prediction["best"] == choice["answer"];
-              }
-            }
-          }
-        }
+    this.socket.onmessage = (message) => {
+      if (message["data"]) {
+        this.onData(JSON.parse(message["data"]));
       }
-    });
+    };
+
+    this.socket.onclose = () => {
+      if (!this.connection) {
+        this.reconnectAttempts += 1;
+        if (this.reconnectAttempts > 5) {
+          this.connected = false;
+          this.status = "";
+        }
+        setTimeout(() => {this.connect()}, 1000);
+      } else {
+        this.connection = false;
+        this.connect();
+      }
+    }
+  }
+
+  ngOnInit(): void {
+    this.connect();
+  }
+
+  onData(data): void {
+    this.status = data["status"];
+    if (this.status == "connecting") {
+      return;
+    }
+
+    if (this.status == "waiting") {
+      this.wait = moment(data["info"]["nextGame"]).fromNow();
+      this.nextGameTime = data["info"]["nextGame"];
+    }
+    
+    if (data["game"] && data["game"]["round"] && data["game"]["round"]["question"]) {
+      this.question = data["game"]["round"]["question"];
+      this.choices = data["game"]["round"]["choices"]
+    }
   }
 }
