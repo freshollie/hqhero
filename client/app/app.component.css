@@ -1,0 +1,21 @@
+.qwackers-holder {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.particles-style {
+    background: #6a3093;
+    background: -webkit-linear-gradient(to right, #a044ff, #6a3093);
+    background: linear-gradient(to right, #a044ff, #6a3093);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

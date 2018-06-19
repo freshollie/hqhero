@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { QwackersComponent } from './qwackers/qwackers.component';
 import { MatCardModule } from '@angular/material/card';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     BrowserModule,
     MatCardModule,
+    ParticlesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
