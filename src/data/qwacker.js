@@ -122,12 +122,12 @@ class Qwacker {
             
             // Did we answer correctly :D
             if (this._game_info.round.prediction.best == roundInfo.conclusion.answer) {
-                this._game_info.conclusion.correct = true;
+                this._game_info.round.conclusion.correct = true;
                 if (this._game_info.score != null) {
                     this._game_info.score += 1;
                 }
             } else {
-                this._game_info.conclusion.correct = false;
+                this._game_info.round.conclusion.correct = false;
             }
         }
     }
