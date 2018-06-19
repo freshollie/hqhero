@@ -1,6 +1,7 @@
 {
   "name": "hqwack",
   "version": "1.0.0",
+<<<<<<< HEAD
   "scripts": {
     "ng": "ng",
     "start": "node server/server.js",
@@ -51,5 +52,20 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
+=======
+  "description": "HQTrivia Answer finder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-basic-auth": "^1.1.5",
+    "ip": "^1.1.5",
+    "morgan": "^1.9.0"
+>>>>>>> 979dbd9fe5fbf728d0e2ad42ed18bc1ce933c7cd
   }
 }
