@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const path = require("path");
 
-const qwacker = require("./routes/qwacker.js");
+const hero = require("./routes/hero.js");
 
 const app = express();
 app.use(morgan("short"))
@@ -13,7 +13,7 @@ app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.use(bodyParser.json());
-app.use("/qwacker", qwacker);
+app.use("/hero", hero);
 
 // Any other routes go to the index.html
 app.get("*", function(req, res) {

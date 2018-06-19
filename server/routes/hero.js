@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const router = Router();
 const basicAuth = require("express-basic-auth");
-const qwacker = require("../data/qwacker.js");
+const hero = require("../data/hero.js");
 const ip = require("ip");
 
 
 router.get("/status", function(req, res) {
-    res.send(qwacker.getStatus());
+    res.send(hero.getStatus());
 });
 
 
@@ -35,37 +35,37 @@ router.post("*", function(req, res, next) {
 })
 
 router.post("/waiting", protected, function(req, res) {
-    qwacker.onWaiting(req.body.info);
+    hero.onWaiting(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/starting", protected, function(req, res) {
-    qwacker.onGameStarting(req.body.info);
+    hero.onGameStarting(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/round", protected, function(req, res) {
-    qwacker.onNewRound(req.body.info);
+    hero.onNewRound(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/analysis", protected, function(req, res) {
-    qwacker.onAnalysis(req.body.info);
+    hero.onAnalysis(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/prediction", protected, function(req, res) {
-    qwacker.onPrediction(req.body.info);
+    hero.onPrediction(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/answers", protected, function(req, res) {
-    qwacker.onRoundOver(req.body.info);
+    hero.onRoundOver(req.body.info);
     res.send({ success: true });
 });
 
 router.post("/ended", protected, function(req, res) {
-    qwacker.onGameFinished(req.body.info);
+    hero.onGameFinished(req.body.info);
     res.send({ success: true });
 });
 
