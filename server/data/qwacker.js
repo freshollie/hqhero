@@ -7,7 +7,7 @@ STATE_CONNECTING = "connecting";
 STATE_WAITING = "waiting";
 
 // Finding the answer
-STATE_THINKING = "thinking";
+STATE_THINKING = "thonking";
 
 // We have answered the question
 STATE_ANSWERED = "answered";
@@ -75,7 +75,8 @@ class Qwacker {
         this._state = STATE_THINKING;
 
         this._game_info.numRounds = roundInfo.numRounds;
-        this._game_info.round = { question: roundInfo.question, num: roundInfo.num}
+        this._game_info.round = roundInfo.question
+        this._game_info.round.num = roundInfo.num    
     }
 
     onAnalysis(analysisInfo) {

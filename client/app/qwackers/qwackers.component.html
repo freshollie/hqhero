@@ -1,3 +1,9 @@
 <mat-card class="qwackers-card">
-  Is quackers alive?
+  <div>
+    {{question}}
+  </div>
+
+  <ul>
+    <li *ngFor="let choice of choices">{{choice.answer}} <strong *ngIf="choice.prediction != undefined">{{choice.prediction}}%</strong></li>
+  </ul>
 </mat-card>
