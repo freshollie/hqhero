@@ -62,11 +62,14 @@ class Hero {
     }
 
     broadcastStatus() {
+        let numClients = 0;
         for (let client of this._socketServer.clients) {
             if (client.readyState === WebSocket.OPEN) {
                 client.send(JSON.stringify(this.getStatus()));
+                numClients++;
             }
         }
+        console.log(`Broadcast status to ${numClients} client(s)`)
     }
 
     getStatus() {

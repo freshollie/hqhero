@@ -11,9 +11,13 @@ export class HeroComponent implements OnInit {
 
   public status = "";
   public wait = "";
+  public prize = 0;
   public nextGameTime = null;
   public question = "";
   public choices: Object[] = [];
+  public analysis: Object = {};
+
+  public objectKeys = Object.keys;
   
   // Represents the connection status to the front-end
   public connected = false;
@@ -24,8 +28,7 @@ export class HeroComponent implements OnInit {
 
   private socket: WebSocket;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
   
   private getWebsocketUri(): string {
     let loc = window.location, uri;
@@ -82,11 +85,19 @@ export class HeroComponent implements OnInit {
     if (this.status == "waiting") {
       this.wait = moment(data["info"]["nextGame"]).fromNow();
       this.nextGameTime = data["info"]["nextGame"];
+      this.prize = data["info"]["prize"];
     }
     
-    if (data["game"] && data["game"]["round"] && data["game"]["round"]["question"]) {
-      this.question = data["game"]["round"]["question"];
-      this.choices = data["game"]["round"]["choices"]
+    if (data["game"] && data["game"]["round"]) {
+      //this.analysis = {}
+      if (data["game"]["round"]["question"]) {
+        this.question = data["game"]["round"]["question"];
+        this.choices = data["game"]["round"]["choices"];
+      }
+
+      if (data["game"]["round"]["analysis"]) {
+        this.analysis = data["game"]["round"]["analysis"];
+      }
     }
   }
 }
