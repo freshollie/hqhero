@@ -60,12 +60,13 @@ class Hero {
         });
 
         this._socketServer.on('connection', (client) => {
+            console.log("Client connected");
             client.send(JSON.stringify(this.getStatus()));
         });
     }
 
     broadcastStatus() {
-        if (!this._socketServer) {
+        if (this._socketServer == null) {
             return;
         }
 

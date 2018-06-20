@@ -10,7 +10,7 @@ router.get("/status", function(req, res) {
 });
 
 
-const SUBNET_MASK = "255.255.0.0"
+const SUBNET_MASK = "255.0.0.0"
 const MY_SUBNET = ip.mask(ip.address(), SUBNET_MASK);
 const protected = function(req, res, next) {
     /**
@@ -22,6 +22,7 @@ const protected = function(req, res, next) {
             ip.mask(remote, SUBNET_MASK) == MY_SUBNET) {
         return next();
     } else {
+        console.log(`${remote} blocked. Not in ${MY_SUBNET}`);
         res.status(403).send();
     }
 }
