@@ -82,9 +82,11 @@ export class HeroComponent implements OnInit {
     }
 
     if (this.status == "waiting") {
-      this.wait = moment(data["info"]["nextGame"]).fromNow();
-      this.nextGameTime = data["info"]["nextGame"];
-      this.prize = data["info"]["prize"];
+      if (data["info"]["nextGame"]) {
+        this.wait = moment(data["info"]["nextGame"]).fromNow();
+        this.nextGameTime = data["info"]["nextGame"];
+        this.prize = data["info"]["prize"];
+      }
     }
     
     if (data["game"] && data["game"]["round"]) {
