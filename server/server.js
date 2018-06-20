@@ -1,6 +1,11 @@
 const app = require("./app.js");
 const config = require("./config.js");
+const server = require('http').createServer();
 
-app.listen(config.port, function() {
+const hero = require("./data/hero.js");
+hero.initialiseSocket(server);
+
+server.on("request", app);
+server.listen(config.port, function() {
     console.log(`Listening on ${config.port}`)
 });

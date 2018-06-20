@@ -37,8 +37,7 @@ export class HeroComponent implements OnInit {
     } else {
       uri = "ws://";
     }
-    uri += "" + loc.hostname + ":8000/hero";
-
+    uri += loc.host + window.location.pathname + "socket/hero";
     return uri;
   }
 

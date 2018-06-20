@@ -17,7 +17,7 @@ app.use("/hero", hero);
 
 // Any other routes go to the index.html
 app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "../dist/index.html"));
+    res.redirect("/");
 });
 
 module.exports = app

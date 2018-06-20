@@ -22,9 +22,22 @@ STATE_IDLE = "idle"
 
 class Hero {
     constructor() {
+        this._socketServer = null;
+        this._state = STATE_INITIALISING;
+
+        this._game_info = {
+            score: 0,
+            round: {}
+        };
+        this._current_round = {};
+        this._next_game = {};
+        this._last_game = {};
+    }
+
+    initialiseSocket(server) {
         this._socketServer = new WebSocket.Server({
-            path:"/hero",
-            port: 8000,
+            path:"/socket/hero",
+            server: server,
             perMessageDeflate: {
                 zlibDeflateOptions: { // See zlib defaults.
                     chunkSize: 1024,
@@ -49,19 +62,13 @@ class Hero {
         this._socketServer.on('connection', (client) => {
             client.send(JSON.stringify(this.getStatus()));
         });
-
-        this._state = STATE_INITIALISING;
-
-        this._game_info = {
-            score: 0,
-            round: {}
-        };
-        this._current_round = {};
-        this._next_game = {};
-        this._last_game = {};
     }
 
     broadcastStatus() {
+        if (!this._socketServer) {
+            return;
+        }
+
         let numClients = 0;
         for (let client of this._socketServer.clients) {
             if (client.readyState === WebSocket.OPEN) {
