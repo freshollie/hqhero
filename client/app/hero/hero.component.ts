@@ -82,14 +82,21 @@ export class HeroComponent implements OnInit {
     }
 
     if (this.status == "waiting") {
-      this.wait = moment(data["info"]["nextGame"]).fromNow();
-      this.nextGameTime = data["info"]["nextGame"];
-      this.prize = data["info"]["prize"];
+      if (data["info"]["nextGame"]) {
+        this.wait = moment(data["info"]["nextGame"]).fromNow();
+        this.nextGameTime = data["info"]["nextGame"];
+        this.prize = data["info"]["prize"];
+      } else {
+        this.wait = null;
+        this.nextGameTime = null;
+        this.prize = null;
+      }
     }
     
     if (data["game"] && data["game"]["round"]) {
       // this.analysis = {}
       if (data["game"]["round"]["question"]) {
+        
         // If question is new, re-assign all. Otherwise, update choices.
         if (data["game"]["round"]["question"] != this.question) {
 
