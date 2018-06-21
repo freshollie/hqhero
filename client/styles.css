@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Define font */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+}

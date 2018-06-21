@@ -1,18 +1,3 @@
-hero {
-    width: 20rem;
-    height: 17rem;
-    position: relative;
-}
-
-.hero-holder {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .particles-style {
     background: #6a3093;
     background: -webkit-linear-gradient(to right, #a044ff, #6a3093);
@@ -24,4 +9,13 @@ hero {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+app-hero {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

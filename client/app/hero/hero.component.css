@@ -1,14 +1,55 @@
-.hero-card {
-    background: white;
-    height: 100%;
-    width: 100%;
-    position:  absolute;
+.pre-game-status {
+    color: white;
+    font-size: 3rem;
+    font-weight: 300;
 }
 
-.best-choice {
-    color: green;
+.game {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 20rem;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.analysis-section {
-   margin-top: 4rem 
+.game>.question {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #242352;
+    margin-top: 4rem;
+}
+
+.choices>div {
+    border: solid 0.2rem #e2e2e2;
+    padding: 0.7rem 1.5rem;
+    margin-top: 0.4rem;
+    border-radius: 3rem;
+    background: linear-gradient(to right, #e2e2e2 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: 100% 100%;
+    transition: 1s;
+}
+
+.choices>.best-choice {
+    border-color: #a1e0a4;
+}
+
+.choices>.correct {
+    border-color: #a1e0a4;
+    background: #a1e0a4;
+}
+
+.choices>.incorrect {
+    border-color: #f7867e;
+}
+
+.choices>div>.content {
+    font-weight: 600;
+    color: #242352;
+    display: flex;
+    justify-content: space-between;
 }
