@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'hero',
+  selector: 'app-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css']
 })
@@ -88,15 +88,34 @@ export class HeroComponent implements OnInit {
     }
     
     if (data["game"] && data["game"]["round"]) {
-      //this.analysis = {}
+      // this.analysis = {}
       if (data["game"]["round"]["question"]) {
-        this.question = data["game"]["round"]["question"];
-        this.choices = data["game"]["round"]["choices"];
+        // If question is new, re-assign all. Otherwise, update choices.
+        if (data["game"]["round"]["question"] != this.question) {
+
+          this.question = data["game"]["round"]["question"];
+          this.choices = data["game"]["round"]["choices"];
+        } else {
+          
+          for (let choiceNum in this.choices) {
+            for (let property in data["game"]["round"]["choices"][choiceNum]) {
+              this.choices[choiceNum][property] =  data["game"]["round"]["choices"][choiceNum][property];
+            }
+          }
+        }
       }
 
       if (data["game"]["round"]["analysis"]) {
         this.analysis = data["game"]["round"]["analysis"];
       }
     }
+  }
+
+  public getBackgroundPosition(choice) {
+    if (choice.prediction == undefined) {
+      return '100% 100%';
+    }
+    let value = 100 - choice.prediction;
+    return value + '% 100%';
   }
 }

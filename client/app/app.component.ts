@@ -17,23 +17,23 @@ export class AppComponent {
     this.myParams = {
       "particles": {
         "number": {
-          "value": 38,
+          "value": 43,
           "density": {
             "enable": true,
-            "value_area": 6814.5012586784715
+            "value_area": 8000
           }
         },
         "color": {
-          "value": "#00c2ff"
+          "value": "#ffffff"
         },
         "shape": {
-          "type": "polygon",
+          "type": "circle",
           "stroke": {
             "width": 0,
             "color": "#000000"
           },
           "polygon": {
-            "nb_sides": 7
+            "nb_sides": 4
           },
           "image": {
             "src": "img/github.svg",
@@ -42,17 +42,17 @@ export class AppComponent {
           }
         },
         "opacity": {
-          "value": 0.5,
-          "random": false,
+          "value": 0.2762016745712954,
+          "random": true,
           "anim": {
             "enable": false,
-            "speed": 0.5,
+            "speed": 0.08120772123013452,
             "opacity_min": 0.1,
             "sync": false
           }
         },
         "size": {
-          "value": 184.39238699953512,
+          "value": 177.55821936726136,
           "random": true,
           "anim": {
             "enable": false,
@@ -63,23 +63,23 @@ export class AppComponent {
         },
         "line_linked": {
           "enable": false,
-          "distance": 48.10236182596568,
+          "distance": 150,
           "color": "#ffffff",
-          "opacity": 0.8257572113457442,
+          "opacity": 0.4,
           "width": 1
         },
         "move": {
           "enable": true,
-          "speed": 0.5,
+          "speed": 1.603412060865523,
           "direction": "none",
-          "random": true,
+          "random": false,
           "straight": false,
           "out_mode": "out",
           "bounce": false,
           "attract": {
             "enable": false,
-            "rotateX": 80.17060304327615,
-            "rotateY": 80.17060304327615
+            "rotateX": 600,
+            "rotateY": 1200
           }
         }
       },

@@ -1,37 +1,28 @@
-
-
-<div *ngIf="connected == false">
+<div class="pre-game-status" *ngIf="connected == false">
   Please wait...
 </div>
 
-<div *ngIf="status == 'initialising'">
-    Initialising
+<div class="pre-game-status" *ngIf="status == 'initialising'">
+  Initialising...
 </div>
 
-<div *ngIf="status == 'waiting'">
+<div class="pre-game-status" *ngIf="status == 'waiting'">
   Next game {{wait}}, Prize: {{prize}}
 </div>
 
-<div *ngIf="status == 'starting'">
+<div class="pre-game-status" *ngIf="status == 'starting'">
   Game is starting soon
 </div>
 
-<mat-card *ngIf="status != 'waiting' && status != 'initialising' && status != 'starting' && status != ''" class="hero-card">
-  <div>
-    {{question}}
-  </div>
+<div class="game" *ngIf="status != 'waiting' && status != 'initialising' && status != 'starting' && status != ''">
+  <div class="question">{{question}}</div>
 
-  <div>
-    <div *ngFor="let choice of choices" [ngClass]="{'best-choice': choice.best}">{{choice.value}} <strong *ngIf="choice.prediction != undefined">{{choice.prediction}}%</strong></div>
-  </div>
-
-  <div class="analysis-section">
-    <div *ngFor="let key of objectKeys(analysis)"> 
-      {{key}} - {{analysis[key]}}
+  <div class="choices">
+    <div *ngFor="let choice of choices" [ngClass]="{'best-choice': choice.best, 'correct': choice.correct, 'incorrect': (choice.best && (choice.correct == false))}" [style.background-position]="getBackgroundPosition(choice)">
+      <div class="content">
+        <span>{{choice.value}}</span>
+        <strong *ngIf="choice.prediction != undefined">{{choice.prediction}}%</strong>
+      </div>
     </div>
   </div>
-
-  <div>
-    {{status}}
-  </div>
-</mat-card>
+</div>
