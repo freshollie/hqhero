@@ -20,6 +20,26 @@
 </div>
 
 <div class="game" *ngIf="status != 'waiting' && status != 'initialising' && status != 'starting' && status != ''">
+  <div class="mask" [@blinkAnimation]="blinkState" (@blinkAnimation.done)="resetBlinkState()">
+    <div class="band">
+      <div class="outer"></div>
+      <div class="inner"></div>
+      <div class="outer"></div>
+    </div>
+    <div class="eyes">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="cheeks" [ngClass]="{'smiling': isCorrect()}">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="eyebrows" [ngClass]="{'thonking': status == 'thonking', 'sad': isIncorrect()}">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+  </div>
+
   <div class="question">{{question}}</div>
 
   <div class="choices">
