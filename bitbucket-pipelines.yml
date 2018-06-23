@@ -10,6 +10,7 @@ pipelines:
     master:
       - step:
           name: build
+          trigger: manual  # uncomment to make manual build
           services:
             - docker
           caches:
@@ -25,9 +26,9 @@ pipelines:
             # push the new Docker image to the Docker registry
             - docker push $IMAGE_NAME
       - step:
-          name: deploy
+          name: Deploy
           deployment: production   # can be test, staging or production
           trigger: manual  # uncomment to make manual deployment
           script:
             - export IMAGE_NAME=$DOCKER_REPO/hqhero:master
-            - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c /opt/web-stack/docker-compose.yaml --prune
+            - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
