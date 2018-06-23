@@ -10,7 +10,6 @@ pipelines:
     master:
       - step:
           name: build
-          trigger: manual  # uncomment to make manual build
           services:
             - docker
           caches:
