@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
      * Only allow local ip addresses through
      */
     const remote = req.ip.split(":").pop();
-    const serverSubnet = ip.mask(ip.address(), mySubnet);
+    const serverSubnet = ip.mask(ip.address(), SUBNET_MASK);
 
     if (remote == "1" || 
             remote == "127.0.0.1" || 
