@@ -1,7 +1,32 @@
+.top {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-shrink: 0;
+}
+
+.main {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    min-height: 27rem;
+    align-items: center;
+    padding-bottom: 4rem;
+}
+
 .pre-game-status {
     color: white;
     font-size: 3rem;
     font-weight: 300;
+}
+
+.flags>a>svg {
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem;
+}
+
+.flags>a>svg:hover {
+    cursor: pointer;
 }
 
 .game {
@@ -13,7 +38,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 2rem;
+    margin: 4rem 2rem;
+}
+
+.game>.game-info {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    color: #242352;
 }
 
 .game>.question {
@@ -90,6 +124,7 @@
     height: 2rem;
     display: flex;
     justify-content: space-evenly;
+    transition: 0.3s;
 }
 
 .game>.mask>.eyes>div {
@@ -152,4 +187,8 @@
 
 .game>.mask>.eyebrows.sad>.right {
     transform: rotate(20deg);
+}
+
+.game>.mask>.eyes.sleeping {
+    height: 0.2rem;
 }

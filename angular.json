@@ -23,7 +23,8 @@
               "client/assets"
             ],
             "styles": [
-              "client/styles.css"
+              "client/styles.css",
+              "node_modules/animate.css/animate.css"
             ],
             "scripts": []
           },
