@@ -20,4 +20,12 @@ app-hero {
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
+}
+
+/* Turn vertical scrolling on for mobile devices */
+@media screen and (max-height: 600px) {
+    app-hero {
+        overflow-y: auto;
+    }
 }
