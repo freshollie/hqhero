@@ -16,6 +16,9 @@
       </svg>
     </a>
   </div>
+  <div class="question-number animated bounceIn" *ngIf="status != 'initialising' && status != '' && status != 'waiting'">
+    Q {{status == 'starting' ? '-' : questionNum}}
+  </div>
 </div>
 
 <div class="main">
