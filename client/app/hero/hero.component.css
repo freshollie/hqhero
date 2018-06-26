@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row-reverse;
     flex-shrink: 0;
+    justify-content: space-between;
 }
 
 .main {
@@ -17,6 +18,12 @@
     color: white;
     font-size: 3rem;
     font-weight: 300;
+}
+
+.question-number {
+    color: white;
+    font-size: 2rem;
+    margin: 0.5rem;
 }
 
 .flags>a>svg {

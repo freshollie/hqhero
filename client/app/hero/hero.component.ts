@@ -27,6 +27,7 @@ export class HeroComponent implements OnInit {
   public prize = "0";
   public nextGameTime = null;
   public question = "";
+  public questionNum = "-";
   public choices: Object[] = [];
   public analysis: Object = {};
   public blinkState = "inactive";
@@ -122,6 +123,7 @@ export class HeroComponent implements OnInit {
         // If question is new, re-assign all. Otherwise, update choices.
         if (data["game"]["round"]["question"] != this.question) {
 
+          this.questionNum = data["game"]["round"]["num"];
           this.question = data["game"]["round"]["question"];
           this.choices = data["game"]["round"]["choices"];
         } else {
