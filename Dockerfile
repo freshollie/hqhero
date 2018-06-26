@@ -30,4 +30,5 @@ COPY --from=server-build /build/node_modules/ node_modules/
 COPY --from=ng-build /build/dist/ dist/
 COPY --from=server-build /build/server/ server/
 
+ENV NODE_ENV=production
 CMD node /hqhero/server/server.js
