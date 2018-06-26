@@ -24,7 +24,7 @@ export class HeroComponent implements OnInit {
 
   public status = "";
   public wait = "";
-  public prize = 0;
+  public prize = "0";
   public nextGameTime = null;
   public question = "";
   public choices: Object[] = [];
@@ -86,6 +86,14 @@ export class HeroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Testing waiting status
+    /*
+    this.connected = true;
+    this.status = 'waiting';
+    this.wait = 'in 5 hours';
+    this.prize = '$400,000';
+    */
+
     this.connect();
     this.blinkLoop();
   }
