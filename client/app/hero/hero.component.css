@@ -115,7 +115,7 @@
     justify-content: space-between;
 }
 
-/* Styling the mask */
+/* Styling The Mask 1996 starring Jim Carrey */
 
 .game>.mask {
     height: 4rem;
@@ -143,6 +143,7 @@
 
 .game>.mask>.band>.inner {
     margin: 0 0.5rem;
+    box-shadow: 0 1px 0 #ff6464, 0 -1px 0 #ff6464;
 }
 
 .game>.mask>.eyes {
