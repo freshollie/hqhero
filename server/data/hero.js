@@ -12,7 +12,7 @@ STATE_WAITING = "waiting";
 STATE_STARTING = "starting";
 
 // Finding the answer
-STATE_THINKING = "thonking";
+STATE_THONKING = "thonking";
 
 // We have answered the question
 STATE_ANSWERED = "answered";
@@ -25,13 +25,12 @@ class Hero {
         this._socketServer = null;
         this._state = STATE_INITIALISING;
 
-        this._game_info = {
+        this._gameInfo = {
             score: 0,
             round: {}
         };
-        this._current_round = {};
-        this._next_game = {};
-        this._last_game = {};
+        this._nextGame = {};
+        this._lastGame = {};
     }
 
     initialiseSocket(server) {
@@ -69,8 +68,8 @@ class Hero {
             case STATE_WAITING:
                 return {
                     status: STATE_WAITING,
-                    info: this._next_game,
-                    last: this._last_game
+                    info: this._nextGame,
+                    last: this._lastGame
                 }
             
             case STATE_STARTING:
@@ -79,11 +78,11 @@ class Hero {
                 }
             
             case STATE_ANSWERED:
-            case STATE_THINKING:
+            case STATE_THONKING:
             case STATE_IDLE:
                 return {
                     status: this._state,
-                    game: this._game_info
+                    game: this._gameInfo
                 }
             
             default:
@@ -96,21 +95,21 @@ class Hero {
 
     onWaiting(info) {
         // Save the last game info, as it looks like the game is over
-        if (this._game_info.numRounds) {
-            this._last_game = {score: this._game_info.score, rounds: this._game_info.numRounds}
-            this._game_info = null;
+        if (this._gameInfo.numRounds) {
+            this._lastGame = {score: this._gameInfo.score, rounds: this._gameInfo.numRounds}
+            this._gameInfo = null;
         } 
 
         this._state = STATE_WAITING;
-        this._next_game = info;
+        this._nextGame = info;
         this.broadcastStatus();
     }
 
     onGameStarting() {
         this._state = STATE_STARTING;
         // Reset the game info
-        this._game_info = {
-            prize: this._next_game.prize,
+        this._gameInfo = {
+            prize: this._nextGame.prize,
             score: 0,
             numRounds: 0,
             round: {}
@@ -119,10 +118,10 @@ class Hero {
     }
 
     onNewRound(roundInfo) {
-        this._state = STATE_THINKING;
+        this._state = STATE_THONKING;
 
-        this._game_info.numRounds = roundInfo.numRounds;
-        this._game_info.round = {
+        this._gameInfo.numRounds = roundInfo.numRounds;
+        this._gameInfo.round = {
             question: roundInfo.question.question,
             choices: [],
             num: roundInfo.num,
@@ -130,7 +129,7 @@ class Hero {
         };
 
         for (let choice of roundInfo.question.choices) {
-            this._game_info.round.choices.push({
+            this._gameInfo.round.choices.push({
                 value: choice,
                 prediction: null,
                 best: false,
@@ -142,40 +141,40 @@ class Hero {
     onAnalysis(analysisInfo) {
         const roundNum = analysisInfo.roundNum;
 
-        if (this._game_info.round) {
+        if (this._gameInfo.round) {
             // Analysis for a previous question.
             // Ignore
-            if (this._game_info.round.num != roundNum) {
+            if (this._gameInfo.round.num != roundNum) {
                 return;
             }
         } else {
             // For some reason we have no info, server restart?
-            this._game_info.round = {};
+            this._gameInfo.round = {};
         }
 
-        this._state = STATE_THINKING;
-        this._game_info.round.analysis = analysisInfo.analysis;
+        this._state = STATE_THONKING;
+        this._gameInfo.round.analysis = analysisInfo.analysis;
         this.broadcastStatus();
     }
 
     onPrediction(predictionInfo) {
         const roundNum = predictionInfo.roundNum;
 
-        if (this._game_info.round) {
+        if (this._gameInfo.round) {
             // Analysis for a previous question.
             // Ignore
-            if (this._game_info.round.num != roundNum) {
+            if (this._gameInfo.round.num != roundNum) {
                 return;
             }
         } else {
             // For some reason we have no info, server restart?
-            this._game_info.round = {};
+            this._gameInfo.round = {};
         }
         this._state = STATE_ANSWERED;
         
         // Add the prediction to the choices
         for (let answer in predictionInfo.prediction.answers) {
-            for (let choice of this._game_info.round.choices) {
+            for (let choice of this._gameInfo.round.choices) {
                 if (choice.value == answer) {
                     choice.prediction = Math.round(predictionInfo.prediction.answers[answer] * 100);
                     choice.best = (predictionInfo.prediction.best == answer);
@@ -183,34 +182,34 @@ class Hero {
             }
         }
 
-        this._game_info.round.predictionSpeed = predictionInfo.speed;
+        this._gameInfo.round.predictionSpeed = predictionInfo.speed;
         this.broadcastStatus();
     }
 
     onRoundOver(roundInfo) {
         this._state = STATE_IDLE;
         //
-        if (!this._game_info.numRounds) {
+        if (!this._gameInfo.numRounds) {
             return;
         }
-        this._game_info.round.eleminated = roundInfo.conclusion.eleminated;
-        this._game_info.round.advancing = roundInfo.conclusion.advancing;
-        this._game_info.round.answer = roundInfo.conclusion.answer;
+        this._gameInfo.round.eleminated = roundInfo.conclusion.eleminated;
+        this._gameInfo.round.advancing = roundInfo.conclusion.advancing;
+        this._gameInfo.round.answer = roundInfo.conclusion.answer;
 
 
         for (let answer in roundInfo.conclusion.answers) {
-            for (let choice of this._game_info.round.choices) {
+            for (let choice of this._gameInfo.round.choices) {
                 if (choice.value == answer) {
                     choice.selections = roundInfo.conclusion.answers[answer];
                     choice.correct = choice.value == roundInfo.conclusion.answer;
                     if (choice.best) {
                         if (choice.value == roundInfo.conclusion.answer) {
-                            this._game_info.round.correctPrediction = true;
-                            if (this._game_info.score != null) {
-                                this._game_info.score += 1;
+                            this._gameInfo.round.correctPrediction = true;
+                            if (this._gameInfo.score != null) {
+                                this._gameInfo.score += 1;
                             }
                         } else {
-                            this._game_info.round.correctPrediction = false;
+                            this._gameInfo.round.correctPrediction = false;
                         }
                     }
                 }
@@ -221,8 +220,8 @@ class Hero {
 
     onGameFinished() {
         // Save the last game info, as this is the end of the game
-        if (this._game_info.numRounds) {
-            this._last_game = {score: this._game_info.score, rounds: this._game_info.numRounds}
+        if (this._gameInfo.numRounds) {
+            this._lastGame = {score: this._gameInfo.score, rounds: this._gameInfo.numRounds}
         } 
         this.broadcastStatus();
     }
