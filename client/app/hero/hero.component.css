@@ -158,8 +158,10 @@
     position: absolute;
     height: 2rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
     transition: 0.3s;
+    top: 1rem;
 }
 
 .game>.mask>.eyes>div {
@@ -174,6 +176,7 @@
     height: 2rem;
     top: 3rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
     transition: 0.3s;
 }
@@ -195,7 +198,9 @@
     position: absolute;
     height: 2rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
+    top: 1rem;
 }
 
 .game>.mask>.eyebrows>div {
