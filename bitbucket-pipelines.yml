@@ -10,6 +10,7 @@ pipelines:
     master:
       - step:
           name: build
+          max-time: 10
           services:
             - docker
           script:
@@ -31,5 +32,5 @@ pipelines:
 definitions:
   services:
     docker:
-      memory: 7168
+      memory: 4096
       
