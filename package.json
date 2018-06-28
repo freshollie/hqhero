@@ -28,13 +28,11 @@
     "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
     "express": "^4.16.3",
-    "express-basic-auth": "^1.1.5",
     "ip": "^1.1.5",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
     "rxjs": "^6.0.0",
     "ws": "^5.2.0",
-    "ws-promise": "^1.5.8",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
