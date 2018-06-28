@@ -32,5 +32,5 @@ pipelines:
 definitions:
   services:
     docker:
-      memory: 4096
+      memory: 2048
       
