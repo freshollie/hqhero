@@ -28,3 +28,8 @@ pipelines:
             - export IMAGE_NAME=$DOCKER_REPO/hqhero:master
             # Log into the server and redeploy the stack
             - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
+definitions:
+  services:
+    docker:
+      memory: 7168
+      
