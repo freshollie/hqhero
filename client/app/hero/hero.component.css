@@ -161,7 +161,6 @@
     justify-content: space-around;
     justify-content: space-evenly;
     transition: 0.3s;
-    top: 1rem;
 }
 
 .game>.mask>.eyes>div {
@@ -200,7 +199,6 @@
     display: flex;
     justify-content: space-around;
     justify-content: space-evenly;
-    top: 1rem;
 }
 
 .game>.mask>.eyebrows>div {

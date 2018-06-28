@@ -1,6 +1,5 @@
 
 const ip = require("ip");
-const basicAuth = require("express-basic-auth");
 
 const SUBNET_MASK = "255.0.0.0"
 
