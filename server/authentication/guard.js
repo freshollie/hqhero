@@ -1,21 +1,32 @@
 
-const ip = require("ip");
+const dns = require("dns");
 
-const SUBNET_MASK = "255.0.0.0"
+const PROXY_DNS_NAME = "proxy";
 
 module.exports = function(req, res, next) {
     /**
-     * Only allow local ip addresses through
+     * Only allow ips through which are not either
+     * local, or not from the proxies.
+     * 
+     * Kinda a hack.
      */
     const remote = req.ip.split(":").pop();
-    const serverSubnet = ip.mask(ip.address(), SUBNET_MASK);
 
-    if (remote == "1" || 
-            remote == "127.0.0.1" || 
-            ip.mask(remote, SUBNET_MASK) == serverSubnet) {
+    if (remote == "1" || remote == "127.0.0.1") {
         return next();
-    } else {
-        console.log(`${remote} blocked. Not in ${serverSubnet}`);
-        res.status(403).send({"error": "Bad request"});
     }
+
+    if (remote.split(".") < 3) {
+        console.log(`${remote} blocked from setting data. Not a local connection`);
+        return res.status(403).send({"error": "Bad request"});
+    }
+
+    dns.reverse(remote, function(err, domains) {
+        if (!err && domains.length == 1) {
+            // Is inside our docker network, as it has an address
+            return next();
+        }
+        console.log(`${remote} blocked from setting data. Not a local connection`);
+        return res.status(403).send({"error": "Bad request"});
+    });
 }
