@@ -95,7 +95,7 @@ class Hero {
 
     onWaiting(info) {
         // Save the last game info, as it looks like the game is over
-        if (this._gameInfo.numRounds) {
+        if (this._gameInfo && this._gameInfo.numRounds) {
             this._lastGame = {score: this._gameInfo.score, rounds: this._gameInfo.numRounds}
             this._gameInfo = null;
         } 
