@@ -24,7 +24,7 @@ pipelines:
           script:
             # Log into the server and redeploy the stack
             - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
-     dev:
+    dev:
       - step:
           name: Deploy
           deployment: staging   # can be test, staging or production
