@@ -11,7 +11,17 @@
     justify-content: center;
     min-height: 27rem;
     align-items: center;
-    padding-bottom: 4rem;
+}
+
+.bottom {
+    margin-top: 2rem;
+}
+
+.bottom>p {
+    text-align: center;
+    margin: 0.3rem;
+    color: #ffffff8f;
+    font-size: 0.8rem;
 }
 
 .pre-game-status {
