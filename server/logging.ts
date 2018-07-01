@@ -5,7 +5,7 @@ import config from "./config";
 const { combine, timestamp, label, printf, colorize } = winston.format;
 
 
-const consoleTransport = new winston.transports.Console({ handleExceptions: true });
+let handleExceptions = true;
 
 const myFormat = printf(info => {
   return `${info.timestamp} [${info.label}] ${info.level}: ${info.message}`;
@@ -19,9 +19,11 @@ function createLogger (logLabel: string) {
       timestamp(),
       myFormat
     ),
-    level: "debug",
-    transports: [consoleTransport]
+    level: config.logLevel,
+    transports: [new winston.transports.Console({ handleExceptions: handleExceptions })]
   });
+
+  handleExceptions = false;
 
   return log;
 }

@@ -179,9 +179,15 @@ class Hero {
   public onGameStarting(): void {
     this.log.debug("Game starting status received");
     this.state = STATE_STARTING;
+
+    let prize = null;
+    if (this.nextGame) {
+      prize = this.nextGame.prize;
+    }
+    
     // Reset the game info
     this.game = {
-      prize: this.nextGame.prize,
+      prize: prize,
       score: 0,
       numRounds: 0,
       round: null

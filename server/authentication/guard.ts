@@ -7,7 +7,7 @@ const log = logging.createLogger("guard");
 const allowedIps: Set<string> = new Set();
 
 function block(remote: string, res: Response) {
-  log.warning(`${remote} blocked from setting data. Not a local connection`);
+  log.warn(`${remote} blocked from setting data. Not a local connection`);
   return res.status(403).send({"error": "Bad request"});
 }
 
@@ -34,11 +34,12 @@ export default function guard(req: Request, res: Response, next: NextFunction) {
   if (remote.split(".").length < 3) {
     return block(remote, res);
   }
-
+  log.debug(`Received data from new ip, ${remote}. Checking authenticity`)
   dns.reverse(remote, function(err, domains) {
     if (!err && domains.length == 1) {
       // Is inside our docker network, as it has an address
       allowedIps.add(remote);
+      log.debug(`Authenticity granted for ${remote}`);
       return next();
     }
     return block(remote, res);
