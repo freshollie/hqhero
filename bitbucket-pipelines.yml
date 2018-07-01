@@ -12,8 +12,9 @@ pipelines:
           # authenticate with the our docker registry
           - docker login $DOCKER_REPO --username $DOCKER_REPO_USERNAME --password $DOCKER_REPO_PASSWORD
           # Use the old image on the server to help with build
-          - docker pull $IMAGE_NAME || true
-          - docker build --cache-from $IMAGE_NAME -t $IMAGE_NAME .
+          # - docker pull $IMAGE_NAME || true
+          # - docker build --cache-from $IMAGE_NAME -t $IMAGE_NAME .
+          - docker build -t $IMAGE_NAME .
           # push the new Docker image to the Docker registry
           - docker push $IMAGE_NAME
     - step:
@@ -22,7 +23,7 @@ pipelines:
         script:
           # Log into the server and redeploy the stack
           - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
-          
+
 definitions:
   services:
     docker:

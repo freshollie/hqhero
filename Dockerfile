@@ -1,4 +1,4 @@
-FROM node:8 as base
+FROM node:8 as buildenv
 WORKDIR /build
 
 # Install the required node modules
@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 ### Build the ng app ###
-FROM base as ng-build
+FROM buildenv as ng-build
 
 # Copy in the clientside angular sourcecode and build the angular app
 COPY angular.json tsconfig.json tslint.json ./
@@ -14,7 +14,7 @@ COPY client/ client/
 RUN npm run build-client
 
 ### Build the server ###
-FROM base  as server-build
+FROM buildenv  as server-build
 
 # Copy in the server-side sourcecode
 COPY server/ server/
