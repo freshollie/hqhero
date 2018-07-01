@@ -27,6 +27,7 @@ RUN npm run build-server
 FROM node:8
 WORKDIR /hqhero
 
+COPY package.json package-lock.json ./
 RUN npm install --production
 
 COPY --from=ng-build /build/dist/ dist/
