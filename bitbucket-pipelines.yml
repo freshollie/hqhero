@@ -16,22 +16,13 @@ pipelines:
           - docker build --cache-from $IMAGE_NAME -t $IMAGE_NAME .
           # push the new Docker image to the Docker registry
           - docker push $IMAGE_NAME
-  branches:
-    master:
-      - step:
-          name: Deploy
-          deployment: production   # can be test, staging or production
-          script:
-            # Log into the server and redeploy the stack
-            - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
-    dev:
-      - step:
-          name: Deploy
-          deployment: staging   # can be test, staging or production
-          script:
-            # Log into the server and redeploy the stack
-            - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
-
+    - step:
+        name: Deploy
+        deployment: production   # can be test, staging or production
+        script:
+          # Log into the server and redeploy the stack
+          - ssh $DEPLOYMENT_USER@$HQHERO_SERVER docker stack deploy --with-registry-auth -c $STACK_FILE --prune $STACK
+          
 definitions:
   services:
     docker:
