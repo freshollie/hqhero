@@ -31,4 +31,4 @@ COPY --from=ng-build /build/dist/ dist/
 COPY --from=server-build /build/server-build/ server/
 
 ENV NODE_ENV=production
-CMD node /hqhero/server/server.js
+ENTRYPOINT node /hqhero/server/server.js
