@@ -10,7 +10,7 @@ RUN npm install
 # Copy in the clientside angular sourcecode and build the angular app
 COPY angular.json tsconfig.json tslint.json ./
 COPY client/ client/
-RUN npm run build-client-prod
+RUN npm run build-client
 
 # Build the server
 FROM node:8 as server-build

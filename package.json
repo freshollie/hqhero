@@ -17,7 +17,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "morgan": "^1.9.0",
-    "winston": "^2.4.3",
+    "winston": "^3.0.0",
     "ws": "^5.2.0"
   },
   "devDependencies": {
@@ -41,7 +41,6 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/morgan": "^1.7.35",
     "@types/node": "~8.9.4",
-    "@types/winston": "^2.3.9",
     "@types/ws": "^5.1.2",
     "angular-particle": "^1.0.4",
     "animate.css": "^3.6.1",

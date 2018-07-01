@@ -1,27 +1,27 @@
 // import logging and use logging.createLogger(name) and then log.info, .debug...
-import winston from "winston";
+import winston, { transports } from "winston";
 import config from "./config";
 
-// Only 
-let unhandledExceptions = true;
+const { combine, timestamp, label, printf, colorize } = winston.format;
 
-function createLogger (label: string) {
-  const log = new (winston.Logger)({
-    transports: [
-      new (winston.transports.Console) ({
-        humanReadableUnhandledException: unhandledExceptions,
-        timestamp: true,
-        handleExceptions: unhandledExceptions,
-        colorize: true,
-        level: config.logLevel,
-        label: label,
-        prettyPrint: true
-      })
-    ]
+
+const consoleTransport = new winston.transports.Console({ handleExceptions: true });
+
+const myFormat = printf(info => {
+  return `${info.timestamp} [${info.label}] ${info.level}: ${info.message}`;
+});
+
+function createLogger (logLabel: string) {
+  const log = winston.createLogger({
+    format: combine(
+      colorize(),
+      label({ label: logLabel}),
+      timestamp(),
+      myFormat
+    ),
+    level: "debug",
+    transports: [consoleTransport]
   });
-
-  // Only the first logger needs to catch unhandled exceptions
-  unhandledExceptions = false;
 
   return log;
 }

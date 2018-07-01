@@ -108,7 +108,7 @@ class Hero {
     });
 
     this.socketServer.on('connection', (client) => {
-      this.log.debug("Client connected");
+      this.log.debug("A client has connected");
       client.send(JSON.stringify(this.getStatus()));
     });
   }
@@ -162,6 +162,7 @@ class Hero {
   }
 
   public onWaiting(info: NextGameInfo): void {
+    this.log.debug("Waiting status received");
     // Save the last game info, as it looks like the game is over
     if (this.game && this.game.numRounds) {
       this.lastGame = new Game();
@@ -176,6 +177,7 @@ class Hero {
   }
 
   public onGameStarting(): void {
+    this.log.debug("Game starting status received");
     this.state = STATE_STARTING;
     // Reset the game info
     this.game = {
@@ -188,6 +190,7 @@ class Hero {
   }
 
   public onNewRound(roundInfo: RoundInfo): void {
+    this.log.debug("New round received");
     this.state = STATE_THONKING;
 
     this.game.numRounds = roundInfo.numRounds;
@@ -208,6 +211,7 @@ class Hero {
   }
 
   public onAnalysis(analysisInfo: RoundInfo): void {
+    this.log.debug("Analysis received");
     const roundNum = analysisInfo.roundNum;
 
     if (this.game.round) {
@@ -227,6 +231,7 @@ class Hero {
   }
 
   public onPrediction(predictionInfo: RoundInfo): void {
+    this.log.debug("Prediction received");
     const roundNum = predictionInfo.roundNum;
 
     if (this.game.round) {
@@ -256,6 +261,7 @@ class Hero {
   }
 
   public onRoundOver(roundInfo: RoundInfo): void {
+    this.log.debug("Round conclusion received");
     this.state = STATE_IDLE;
 
     if (!this.game.numRounds) {
@@ -293,6 +299,7 @@ class Hero {
   }
 
   public onGameFinished() {
+    this.log.debug("Game finished status received");
     // Save the last game info, as this is the end of the game
     if (this.game && this.game.numRounds) {
       this.lastGame = new Game();
