@@ -273,3 +273,11 @@
         transform: scale(1.5) translate(-2rem, -2rem);
     }
 }
+
+/* Media Queries */
+
+@media screen and (max-width: 600px) {
+    .bottom>p {
+        font-size: 0.5rem;
+    }
+}
