@@ -184,7 +184,7 @@ class Hero {
     if (this.nextGame) {
       prize = this.nextGame.prize;
     }
-    
+
     // Reset the game info
     this.game = {
       prize: prize,
@@ -228,7 +228,7 @@ class Hero {
       }
     } else {
       // For some reason we have no info, server restart?
-      this.game.round = null;
+      return
     }
 
     this.state = STATE_THONKING;
@@ -248,7 +248,7 @@ class Hero {
       }
     } else {
       // For some reason we have no info, server restart?
-      this.game.round = null;
+      return;
     }
     this.state = STATE_ANSWERED;
     
@@ -270,9 +270,10 @@ class Hero {
     this.log.debug("Round conclusion received");
     this.state = STATE_IDLE;
 
-    if (!this.game.numRounds) {
+    if (!this.game.numRounds || !this.game.round) {
       return;
     }
+    
     this.game.round.eleminated = roundInfo.conclusion.eleminated;
     this.game.round.advancing = roundInfo.conclusion.advancing;
     this.game.round.answer = roundInfo.conclusion.answer;
