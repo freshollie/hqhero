@@ -10,25 +10,27 @@ RUN npm install
 # Copy in the clientside angular sourcecode and build the angular app
 COPY angular.json tsconfig.json tslint.json ./
 COPY client/ client/
-RUN npm run-script build-prod
+RUN npm run build-client-prod
 
 # Build the server
 FROM node:8 as server-build
 
 WORKDIR /build
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN npm install
 
 # Copy in the server-side sourcecode
 COPY server/ server/
+RUN npm run build-server
 
 # Make the image
 FROM node:8
 WORKDIR /hqhero
 
-COPY --from=server-build /build/node_modules/ node_modules/
+RUN npm install --production
+
 COPY --from=ng-build /build/dist/ dist/
-COPY --from=server-build /build/server/ server/
+COPY --from=server-build /build/server-build/ server/
 
 ENV NODE_ENV=production
 CMD node /hqhero/server/server.js
