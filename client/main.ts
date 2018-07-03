@@ -4,7 +4,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+declare let gtag: Function;
+
+
+
 if (environment.production) {
+  gtag('js', new Date());
+  gtag('config', 'UA-121404315-1');
   enableProdMode();
 }
 
