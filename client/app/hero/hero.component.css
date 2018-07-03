@@ -11,7 +11,17 @@
     justify-content: center;
     min-height: 27rem;
     align-items: center;
-    padding-bottom: 4rem;
+}
+
+.bottom {
+    margin-top: 2rem;
+}
+
+.bottom>p {
+    text-align: center;
+    margin: 0.3rem;
+    color: #ffffff8f;
+    font-size: 0.8rem;
 }
 
 .pre-game-status {
@@ -158,6 +168,7 @@
     position: absolute;
     height: 2rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
     transition: 0.3s;
 }
@@ -174,6 +185,7 @@
     height: 2rem;
     top: 3rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
     transition: 0.3s;
 }
@@ -195,6 +207,7 @@
     position: absolute;
     height: 2rem;
     display: flex;
+    justify-content: space-around;
     justify-content: space-evenly;
 }
 
@@ -258,5 +271,13 @@
     100% {
         opacity: 0;
         transform: scale(1.5) translate(-2rem, -2rem);
+    }
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 600px) {
+    .bottom>p {
+        font-size: 0.5rem;
     }
 }
