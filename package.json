@@ -6,6 +6,7 @@
     "ts-node": "ts-node",
     "start": "ng build && ts-node -P server/tsconfig.json server/server.ts",
     "start-server": "ts-node -P server/tsconfig.json server/server.ts",
+    "server": "ts-node -P server/tsconfig.json server/server.ts",
     "build-client": "ng build --prod --build-optimizer --base-href ./",
     "build-server": "tsc -p server/",
     "test": "ng test",
