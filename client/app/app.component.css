@@ -1,6 +1,6 @@
 .particles-style {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     top: 0;
     left: 0;
@@ -9,6 +9,7 @@
 }
 
 app-hero {
+    margin-top: env(safe-area-inset-top);
     position: absolute;
     height: 100%;
     width: 100%;
