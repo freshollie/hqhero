@@ -9,7 +9,11 @@ RUN npm install
 FROM buildenv as ng-build
 
 # Copy in the clientside angular sourcecode and build the angular app
-COPY angular.json tsconfig.json tslint.json ./
+COPY angular.json \
+     ngsw-config.json \
+     tsconfig.json \
+     tslint.json \
+     ./
 COPY client/ client/
 RUN npm run build-client
 
