@@ -94,7 +94,7 @@ export class HeroComponent implements OnInit {
     this.wait = 'in 5 hours';
     this.prize = '$400,000';
     */
-
+   
     this.connect();
     this.blinkLoop();
   }
