@@ -36,13 +36,13 @@
     margin: 0.5rem;
 }
 
-.flags>a>svg {
+.flags>a>img {
     width: 3rem;
     height: 3rem;
     margin: 0.5rem;
 }
 
-.flags>a>svg:hover {
+.flags>a>img:hover {
     cursor: pointer;
 }
 
