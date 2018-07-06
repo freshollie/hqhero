@@ -14,7 +14,7 @@ COPY client/ client/
 RUN npm run build-client
 
 ### Build the server ###
-FROM buildenv  as server-build
+FROM buildenv as server-build
 
 # Copy in the server-side sourcecode
 COPY server/ server/
