@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { trigger,style,transition,animate,keyframes,query,group,state } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes, query } from '@angular/animations';
 import * as moment from 'moment';
 
 @Component({
@@ -94,9 +93,9 @@ export class HeroComponent implements OnInit {
     this.wait = 'in 5 hours';
     this.prize = '$400,000';
     */
-   
+
     this.connect();
-    this.blinkLoop();
+    this.blinkLoop(); 
   }
 
   onData(data): void {
