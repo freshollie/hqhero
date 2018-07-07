@@ -2,7 +2,7 @@
   "name": "HQ Hero",
   "short_name": "HQ Hero",
   "theme_color": "#6a3093",
-  "background_color": "#ffffff",
+  "background_color": "#6a3093",
   "display": "standalone",
   "scope": "/",
   "start_url": "./",
