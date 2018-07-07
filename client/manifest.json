@@ -1,11 +1,11 @@
 {
   "name": "HQ Hero",
   "short_name": "HQ Hero",
-  "theme_color": "#6a3093",
-  "background_color": "#6a3093",
-  "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+   "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
       {
           "src": "assets/icons/android-chrome-192x192.png",
