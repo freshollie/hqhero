@@ -1,9 +1,9 @@
 {
   "name": "HQ Hero",
   "short_name": "HQ Hero",
-  "theme_color": "#ffffff",
+  "theme_color": "#6a3093",
   "background_color": "#ffffff",
-   "display": "standalone",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "icons": [
