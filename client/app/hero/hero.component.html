@@ -21,11 +21,11 @@
     Please wait...
   </div>
 
-  <div class="pre-game-status" *ngIf="state == STATE_INITIALISING">
+  <div class="pre-game-status" *ngIf="state == STATE_INITIALISING && connected">
     Initialising...
   </div>
 
-  <div class="hero animated bounceInUp" *ngIf="gameActive && connected">
+  <div class="hero animated bounceInUp" *ngIf="state != STATE_INITIALISING && connected">
     <div class="mask" [@blinkAnimation]="blinkState" (@blinkAnimation.done)="resetBlinkState()">
       <div class="band">
         <div class="outer"></div>
