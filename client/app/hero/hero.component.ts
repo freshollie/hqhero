@@ -183,7 +183,7 @@ export class HeroComponent implements OnInit {
   private resetGame(): void {
     this.questionNum = null;
     this.question = "";
-    this.choices = null;
+    this.choices = [];
   }
 
   private onConnected(): void {
