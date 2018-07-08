@@ -162,11 +162,11 @@ export class HeroComponent implements OnInit {
 
   ngOnInit(): void {
     // Testing waiting status
-    /*
+    /* 
     this.connected = true;
-    this.status = 'waiting';
+    this.state = this.STATE_WAITING;
     this.wait = 'in 5 hours';
-    this.prize = '$400,000';
+    this.prize = '$400,000'; 
     */
     this.heroSocket.initialise();
     this.blinkLoop(); 
