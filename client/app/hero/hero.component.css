@@ -46,7 +46,7 @@
     cursor: pointer;
 }
 
-.game {
+.hero {
     background-color: white;
     padding: 1rem;
     border-radius: 1rem;
@@ -58,7 +58,7 @@
     margin: 4rem 2rem;
 }
 
-.game>.game-info {
+.hero>.game-info {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@
     color: #242352;
 }
 
-.game>.game-info {
+.hero>.game-info {
     text-align: center;
     font-size: 1.5rem;
     margin: 0;
@@ -94,7 +94,7 @@
     color: white;
 }
 
-.game>.question {
+.hero>.question {
     text-align: center;
     font-size: 1.3rem;
     font-weight: 600;
@@ -134,7 +134,7 @@
 
 /* Styling The Mask 1996 starring Jim Carrey */
 
-.game>.mask {
+.hero>.mask {
     height: 4rem;
     display: flex;
     flex-direction: column;
@@ -143,27 +143,27 @@
     justify-content: center;
 }
 
-.game>.mask>.band {
+.hero>.mask>.band {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-.game>.mask>.band>div {
+.hero>.mask>.band>div {
     background-color: #ff6464;
     flex-grow: 1;
 }
 
-.game>.mask>.band>.outer {
+.hero>.mask>.band>.outer {
     border-radius: 10rem;
 }
 
-.game>.mask>.band>.inner {
+.hero>.mask>.band>.inner {
     margin: 0 0.5rem;
     box-shadow: 0 1px 0 #ff6464, 0 -1px 0 #ff6464;
 }
 
-.game>.mask>.eyes {
+.hero>.mask>.eyes {
     width: 100%;
     position: absolute;
     height: 2rem;
@@ -173,13 +173,13 @@
     transition: 0.3s;
 }
 
-.game>.mask>.eyes>div {
+.hero>.mask>.eyes>div {
     background-color: white;
     width: 2rem;
     border-radius: 50%;
 }
 
-.game>.mask>.cheeks {
+.hero>.mask>.cheeks {
     width: 100%;
     position: absolute;
     height: 2rem;
@@ -190,7 +190,7 @@
     transition: 0.3s;
 }
 
-.game>.mask>.cheeks>div {
+.hero>.mask>.cheeks>div {
     background-color: #ff6464;
     width: 2rem;
     height: 0.8rem;
@@ -198,11 +198,11 @@
     position: relative;
 }
 
-.game>.mask>.cheeks.smiling {
+.hero>.mask>.cheeks.smiling {
     top: 2.3rem;
 }
 
-.game>.mask>.eyebrows {
+.hero>.mask>.eyebrows {
     width: 100%;
     position: absolute;
     height: 2rem;
@@ -211,7 +211,7 @@
     justify-content: space-evenly;
 }
 
-.game>.mask>.eyebrows>div {
+.hero>.mask>.eyebrows>div {
     background-color: #ff6464;
     position: relative;
     width: 2.8rem;
@@ -220,41 +220,41 @@
     transition: 0.3s;
 }
 
-.game>.mask>.eyebrows.thonking>div {
+.hero>.mask>.eyebrows.thonking>div {
     top: -0.6rem;
 }
 
-.game>.mask>.eyebrows.sad>div {
+.hero>.mask>.eyebrows.sad>div {
     border-radius: 50%;
     top: -0.5rem;
 }
 
-.game>.mask>.eyebrows.sad>.left {
+.hero>.mask>.eyebrows.sad>.left {
     transform: rotate(-20deg);
 }
 
-.game>.mask>.eyebrows.sad>.right {
+.hero>.mask>.eyebrows.sad>.right {
     transform: rotate(20deg);
 }
 
-.game>.mask>.eyes.sleeping {
+.hero>.mask>.eyes.sleeping {
     height: 0.2rem;
 }
 
-.game>.mask>.snore {
+.hero>.mask>.snore {
     position: absolute;
     left: 6rem;
     top: -2rem;
     font-size: 1.5rem;
 }
 
-.game>.mask>.snore>div {
+.hero>.mask>.snore>div {
     position: absolute;
     opacity: 0;
     animation: lift 10s linear infinite;
 }
 
-.game>.mask>.snore>div:nth-child(2) {
+.hero>.mask>.snore>div:nth-child(2) {
     animation-delay: 5s;
 }
 

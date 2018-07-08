@@ -10,46 +10,47 @@
       <img class="icon" src="assets/images/de-flag.svg">
     </a>
   </div>
-  <div class="question-number animated bounceIn" *ngIf="status != 'initialising' && status != '' && status != 'waiting'">
-    Q {{status == 'starting' ? '-' : questionNum}}
+  <div class="question-number animated bounceIn" 
+       *ngIf="gameActive">
+    Q {{state == 'starting' ? '-' : questionNum}}
   </div>
 </div>
 
 <div class="main">
-  <div class="pre-game-status" *ngIf="connected == false">
+  <div class="pre-game-status" *ngIf="!connected">
     Please wait...
   </div>
 
-  <div class="pre-game-status" *ngIf="status == 'initialising'">
+  <div class="pre-game-status" *ngIf="state == STATE_INITIALISING">
     Initialising...
   </div>
 
-  <div class="game animated bounceInUp" *ngIf="status != 'initialising' && status != ''">
+  <div class="hero animated bounceInUp" *ngIf="gameActive && connected">
     <div class="mask" [@blinkAnimation]="blinkState" (@blinkAnimation.done)="resetBlinkState()">
       <div class="band">
         <div class="outer"></div>
         <div class="inner"></div>
         <div class="outer"></div>
       </div>
-      <div class="eyes" [ngClass]="{'sleeping': status == 'waiting'}">
+      <div class="eyes" [ngClass]="{'sleeping': state == STATE_WAITING}">
         <div class="left"></div>
         <div class="right"></div>
       </div>
-      <div class="snore" *ngIf="status == 'waiting'">
+      <div class="snore" *ngIf="state == STATE_WAITING">
         <div>Z</div>
         <div>Z</div>
       </div>
-      <div class="cheeks" [ngClass]="{'smiling': isCorrect()}">
+      <div class="cheeks" [ngClass]="{'smiling': wasCorrect()}">
         <div class="left"></div>
         <div class="right"></div>
       </div>
-      <div class="eyebrows" [ngClass]="{'thonking': status == 'thonking', 'sad': isIncorrect()}">
+      <div class="eyebrows" [ngClass]="{'thonking': state == STATE_THONKING, 'sad': wasIncorrect()}">
         <div class="left"></div>
         <div class="right"></div>
       </div>
     </div>
 
-    <div class="game-info" *ngIf="status == 'waiting'">
+    <div class="game-info" *ngIf="state == STATE_WAITING">
       <p *ngIf="wait">Next game {{wait}}</p>
       <div *ngIf="wait" class="prize">
         <img class="icon" src="assets/images/banner.svg">
@@ -60,14 +61,20 @@
       </p>
     </div>
   
-    <div class="game-info" *ngIf="status == 'starting'">
+    <div class="game-info" *ngIf="state == STATE_STARTING">
       Game is starting soon
     </div>
 
-    <div class="question" *ngIf="status != 'waiting' && status != 'starting'">{{question}}</div>
+    <div class="question" *ngIf="state != STATE_WAITING && state != STATE_STARTING">{{question}}</div>
 
-    <div class="choices" *ngIf="status != 'waiting' && status != 'starting'">
-      <div *ngFor="let choice of choices" [ngClass]="{'best-choice': choice.best, 'correct': choice.correct, 'incorrect': (choice.best && (choice.correct == false))}" [style.background-position]="getBackgroundPosition(choice)">
+    <div class="choices" *ngIf="state != STATE_WAITING && state != STATE_STARTING">
+      <div *ngFor="let choice of choices" 
+           [ngClass]="{
+             'best-choice': choice.best, 
+             'correct': choice.correct, 
+             'incorrect': (choice.best && (choice.correct == false))
+            }" 
+           [style.background-position]="calculateChoiceBackgroundPosition(choice)">
         <div class="content">
           <span>{{choice.value}}</span>
           <strong *ngIf="choice.prediction != undefined">{{choice.prediction}}%</strong>
@@ -78,5 +85,9 @@
 </div>
 
 <div class="bottom">
-  <p class="disclaimer">HQ Hero is not endorsed or affiliated with Intermedia Labs or the HQ Trivia application. This site is for educational purposes only and should not be used to gain an advantage in live HQ Trivia games.</p>
+  <p class="disclaimer">
+    HQ Hero is not endorsed or affiliated with Intermedia Labs 
+    or the HQ Trivia application. This site is for educational purposes only and 
+    should not be used to gain an advantage in live HQ Trivia games.
+  </p>
 </div>
