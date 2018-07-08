@@ -1,6 +1,7 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Component, OnInit, ApplicationRef, HostListener } from '@angular/core';
 import { trigger, style, transition, animate, keyframes, query } from '@angular/animations';
 import * as moment from 'moment';
+import * as NoSleep from 'nosleep.js';
 
 /**
  * The connection to the hero
@@ -157,27 +158,24 @@ export class HeroComponent implements OnInit {
 
   // Represents the connection status to the front-end
   public connected = false;
+  private wakelock;
 
   constructor(private applicationRef: ApplicationRef) {}
 
   ngOnInit(): void {
-    // Testing waiting status
-    /* 
-    this.connected = true;
-    this.state = this.STATE_WAITING;
-    this.wait = 'in 5 hours';
-    this.prize = '$400,000'; 
-    */
     this.heroSocket.initialise();
     this.blinkLoop(); 
 
-    /* this.applicationRef.isStable.subscribe((stable) => {
-      if (stable && !initialised) {
-        initialised = true;
-        this.heroSocket.connect();
-        this.blinkLoop(); 
-      }
-    }); */
+    this.wakelock = new NoSleep.default();
+  }
+
+  @HostListener('click')
+  @HostListener('touchstart') 
+  onEvent() {
+    if (this.wakelock.noSleepVideo.paused) {
+      // Don't let the phone sleep
+      this.wakelock.enable();
+    }
   }
 
   private resetGame(): void {
