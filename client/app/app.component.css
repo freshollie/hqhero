@@ -8,6 +8,7 @@
     bottom: 0;
 }
 
+/* Margin at the top is only used on apple */
 app-hero {
     margin-top: env(safe-area-inset-top);
     position: absolute;

@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
 import { ParticlesModule } from 'angular-particle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+//import { ServiceWorkerModule } from '@angular/service-worker';
+//import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -16,8 +16,8 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     ParticlesModule,
-    BrowserAnimationsModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
+    BrowserAnimationsModule//,
+    //ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
