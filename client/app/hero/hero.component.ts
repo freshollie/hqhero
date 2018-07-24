@@ -7,23 +7,27 @@ import * as NoSleep from 'nosleep.js';
  * The connection to the hero
  */
 class HeroSocket {
-  private static path = "socket/hero";
+  private static path = "/socket/hero";
 
   /**
    * Get the full socket path using the
    * current host and the protocol
    */
   private static getSocketURI(): string {
-    let loc = window.location, uri;
+    const loc = window.location; 
+    let uri;
     
-    // When testing we, the socket is reconfigured based
+    // When testing the socket is reconfigured based
     // on our protocol
     if (loc.protocol === "https:") {
         uri = "wss://";
     } else {
       uri = "ws://";
     }
-    uri += loc.host + window.location.pathname + HeroSocket.path;
+    const pathItems = window.location.pathname.split("/");
+    pathItems.pop();
+
+    uri += loc.host + pathItems.join("/") + HeroSocket.path;
     return uri;
   }
 
