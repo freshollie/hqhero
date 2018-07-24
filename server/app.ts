@@ -1,3 +1,10 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
 import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
@@ -18,19 +25,16 @@ app.use(morgan('tiny', {
   }
 }));
 
-app.enable('trust proxy');
-
 // Serve the angular files
 app.use(express.static(path.join(__dirname, "../dist")));
 
+// Parse all bodies as JSON
 app.use(bodyParser.json());
+
+// Use the hero API for /hero/*** routes
 app.use("/hero", heroApi);
 
-app.get("/", function(req, res) {
-  res.sendStatus(404);
-});
-
-// Any other routes go to the index.html
+// Any other routes redirect to the root
 app.get("*", function(req, res) {
   res.redirect("/");
 });
