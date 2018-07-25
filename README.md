@@ -1,4 +1,5 @@
-<img align="right" alt="App icon" src="client/assets/android-chrome-384x384.png" height="115px">
+<img align="right" alt="App icon" src="client/assets/icons/android-chrome-384x384.png" height="300px">
+
 # HQhero
 
 HQhero is your quiz hero. A lightweight and responsive frontend 
