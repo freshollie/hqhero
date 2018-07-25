@@ -9,9 +9,16 @@ HQhero uses WebSockets to transmit the information quickly, easily, and efficien
 HQhero requires a backend as a processor. The processor sends events 
 to hqhero, where hqhero will then broadcast those events to all connected users.
 
-hqhero.com uses quiz-mind as a processor.
+hqhero.com uses herobrain as a processor.
 
 The frontend of HQhero is a single page Angular 6 application, mostly for ease of 
 development.
 
-#
+## License
+
+HQhero is released under the MIT license
+
+## Credits
+
+- Oliver Bell - Serverside, System Architecture, DevOps
+- Eddie Reeder - Frontend design, Animations, Logo
