@@ -1,3 +1,11 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
+
 import WebSocket from "ws";
 import { Server } from "http";
 
@@ -87,6 +95,15 @@ class Game {
   public numRounds: number;
 }
 
+/**
+ * The hero object is designed to the the serverside representation
+ * of the hero.
+ * 
+ * He receives updates from the processor and will broadcast them to
+ * any client connected to his websockets
+ * 
+ * When a client connects it will be broadcast the latest status 
+ */
 class Hero {
   private log = logging.createLogger("Hero");
   private socketServer: WebSocket.Server;
@@ -113,6 +130,10 @@ class Hero {
     });
   }
 
+  /**
+   * Broadcast the hero status to all connected
+   * clients
+   */
   private broadcastStatus(): void {
     if (this.socketServer == null) {
       return;

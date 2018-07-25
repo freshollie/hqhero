@@ -1,3 +1,11 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
+
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

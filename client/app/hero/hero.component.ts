@@ -1,3 +1,10 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
 import { Component, OnInit, ApplicationRef, HostListener } from '@angular/core';
 import { trigger, style, transition, animate, keyframes, query } from '@angular/animations';
 import * as moment from 'moment';

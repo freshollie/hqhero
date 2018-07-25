@@ -1,3 +1,10 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
 // import logging and use logging.createLogger(name) and then log.info, .debug...
 import winston, { transports } from "winston";
 import config from "./config";
