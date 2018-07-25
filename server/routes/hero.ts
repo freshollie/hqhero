@@ -1,10 +1,11 @@
 /**
  * MIT License
  *
- * Copyright (c) Oliver Bell <freshollie@gmail.com> 
+ * Copyright (c) Oliver Bell  <freshollie@gmail.com> 
  *             & Eddie Reeder <edlilkid@hotmail.co.uk>
  *
  */
+
 import { Router } from "express";
 
 import hero from "../data/hero";
