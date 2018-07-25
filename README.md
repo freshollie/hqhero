@@ -1,6 +1,6 @@
-<img align="right" alt="App icon" src="client/assets/icons/android-chrome-384x384.png" height="300px">
+<img align="right" alt="App icon" src="client/assets/icons/android-chrome-384x384.png" height="150px">
 
-# HQhero
+# HQhero :crystal_ball: :robot:
 
 HQhero is your quiz hero. A lightweight and responsive frontend 
 for a quiz prediction robot.
