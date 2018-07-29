@@ -1,4 +1,4 @@
-<img align="right" alt="App icon" src="client/assets/icons/android-chrome-384x384.png" height="150px">
+<img align="right" alt="demo" src="demo/demo.gif" height="400px">
 
 # HQhero
 
