@@ -1,4 +1,4 @@
-<img align="right" alt="demo" src="demo/demo.gif" height="400px">
+<img align="left" alt="demo" src="client/assets/icons/android-chrome-384x384.png" height="150px">
 
 # HQhero
 
@@ -6,7 +6,7 @@ Your quiz hero. A lightweight and responsive frontend
 for a quiz prediction robot.
 
 ## Technicals
-HQhero uses WebSockets to transmit the information quickly, easily, and efficiently.
+HQhero uses Websockets to transmit the information quickly, easily, and efficiently.
 
 Requires a quiz processor to transmit answer predictions and other
 information about the game to the backend. The processor sends events 
@@ -14,6 +14,14 @@ to the hero on the backend, where he will then broadcast those events
 to all connected users.
 
 hqhero.com uses [herobrain](https://github.com/freshollie/herobrain) as a processor.
+
+## API
+
+Method | URI | Body | Description
+--- | --- | --- | ---
+POST | /hero/waiting | | 
+
+<img align="right" alt="demo" src="demo/demo.gif" height="400px">
 
 ## Deployment
 
