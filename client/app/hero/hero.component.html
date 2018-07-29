@@ -32,21 +32,23 @@
         <div class="inner"></div>
         <div class="outer"></div>
       </div>
-      <div class="eyes" [ngClass]="{'sleeping': state == STATE_WAITING}">
-        <div class="left"></div>
-        <div class="right"></div>
-      </div>
-      <div class="snore" *ngIf="state == STATE_WAITING">
-        <div>Z</div>
-        <div>Z</div>
-      </div>
-      <div class="cheeks" [ngClass]="{'smiling': wasCorrect()}">
-        <div class="left"></div>
-        <div class="right"></div>
-      </div>
-      <div class="eyebrows" [ngClass]="{'thonking': state == STATE_THONKING, 'sad': wasIncorrect()}">
-        <div class="left"></div>
-        <div class="right"></div>
+      <div class="face">
+        <div class="eyes" [ngClass]="{'sleeping': state == STATE_WAITING}">
+          <div class="left"></div>
+          <div class="right"></div>
+        </div>
+        <div class="snore" *ngIf="state == STATE_WAITING">
+          <div>Z</div>
+          <div>Z</div>
+        </div>
+        <div class="cheeks" [ngClass]="{'smiling': wasCorrect()}">
+          <div class="left"></div>
+          <div class="right"></div>
+        </div>
+        <div class="eyebrows" [ngClass]="{'thonking': state == STATE_THONKING, 'sad': wasIncorrect()}">
+          <div class="left"></div>
+          <div class="right"></div>
+        </div>
       </div>
     </div>
 
