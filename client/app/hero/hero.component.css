@@ -28,6 +28,8 @@
 .bottom>.disclaimer {
     text-align: center;
     margin: 0.3rem;
+    opacity: 0.8;
+    color: #ffffff;
     color: #ffffff8f;
     font-size: 0.8rem;
 }
