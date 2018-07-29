@@ -17,7 +17,7 @@
     margin-top: 2rem;
 }
 
-.bottom>p {
+.bottom>.disclaimer {
     text-align: center;
     margin: 0.3rem;
     color: #ffffff8f;
@@ -136,17 +136,18 @@
 
 .hero>.mask {
     height: 4rem;
-    display: flex;
-    flex-direction: column;
     margin: 1rem -2rem 0 -2rem;
-    position: relative;
+    display: flex;
     justify-content: center;
 }
 
 .hero>.mask>.band {
+    height: 100%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    position: relative;
 }
 
 .hero>.mask>.band>div {
@@ -163,34 +164,40 @@
     box-shadow: 0 1px 0 #ff6464, 0 -1px 0 #ff6464;
 }
 
-.hero>.mask>.eyes {
-    width: 100%;
+.hero>.mask>.face {
+    width: 80%;
+    height: 4rem;
     position: absolute;
-    height: 2rem;
     display: flex;
-    justify-content: space-around;
-    justify-content: space-evenly;
-    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero>.mask>.eyes>div {
+.hero>.mask>.face>.eyes {
+    transition: 0.3s;
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hero>.mask>.face>.eyes>div {
     background-color: white;
     width: 2rem;
     border-radius: 50%;
 }
 
-.hero>.mask>.cheeks {
-    width: 100%;
+.hero>.mask>.face>.cheeks {
     position: absolute;
     height: 2rem;
+    width: 100%;
     top: 3rem;
     display: flex;
     justify-content: space-around;
-    justify-content: space-evenly;
     transition: 0.3s;
 }
 
-.hero>.mask>.cheeks>div {
+.hero>.mask>.face>.cheeks>div {
     background-color: #ff6464;
     width: 2rem;
     height: 0.8rem;
@@ -198,20 +205,19 @@
     position: relative;
 }
 
-.hero>.mask>.cheeks.smiling {
+.hero>.mask>.face>.cheeks.smiling {
     top: 2.3rem;
 }
 
-.hero>.mask>.eyebrows {
-    width: 100%;
+.hero>.mask>.face>.eyebrows {
     position: absolute;
     height: 2rem;
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    justify-content: space-evenly;
 }
 
-.hero>.mask>.eyebrows>div {
+.hero>.mask>.face>.eyebrows>div {
     background-color: #ff6464;
     position: relative;
     width: 2.8rem;
@@ -220,41 +226,41 @@
     transition: 0.3s;
 }
 
-.hero>.mask>.eyebrows.thonking>div {
+.hero>.mask>.face>.eyebrows.thonking>div {
     top: -0.6rem;
 }
 
-.hero>.mask>.eyebrows.sad>div {
+.hero>.mask>.face>.eyebrows.sad>div {
     border-radius: 50%;
     top: -0.5rem;
 }
 
-.hero>.mask>.eyebrows.sad>.left {
+.hero>.mask>.face>.eyebrows.sad>.left {
     transform: rotate(-20deg);
 }
 
-.hero>.mask>.eyebrows.sad>.right {
+.hero>.mask>.face>.eyebrows.sad>.right {
     transform: rotate(20deg);
 }
 
-.hero>.mask>.eyes.sleeping {
+.hero>.mask>.face>.eyes.sleeping {
     height: 0.2rem;
 }
 
-.hero>.mask>.snore {
+.hero>.mask>.face>.snore {
     position: absolute;
-    left: 6rem;
-    top: -2rem;
+    left: 3rem;
+    top: -1.5rem;
     font-size: 1.5rem;
 }
 
-.hero>.mask>.snore>div {
+.hero>.mask>.face>.snore>div {
     position: absolute;
     opacity: 0;
     animation: lift 10s linear infinite;
 }
 
-.hero>.mask>.snore>div:nth-child(2) {
+.hero>.mask>.face>.snore>div:nth-child(2) {
     animation-delay: 5s;
 }
 
@@ -277,7 +283,7 @@
 /* Media Queries */
 
 @media screen and (max-width: 600px) {
-    .bottom>p {
+    .bottom>.disclaimer {
         font-size: 0.5rem;
     }
 }
