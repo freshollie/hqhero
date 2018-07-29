@@ -1,4 +1,4 @@
-<img align="left" alt="demo" src="client/assets/icons/android-chrome-384x384.png" height="150px">
+<img align="right" alt="icon" src="client/assets/icons/android-chrome-384x384.png" height="150px">
 
 # HQhero
 
