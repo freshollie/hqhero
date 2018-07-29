@@ -1,3 +1,11 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) Oliver Bell  <freshollie@gmail.com> 
+ *             & Eddie Reeder <edlilkid@hotmail.co.uk>
+ *
+ */
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
