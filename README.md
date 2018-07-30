@@ -12,7 +12,7 @@ for a quiz prediction robot. [Demo](https://hqhero.com/training)
 `npm install` will install all dependencies
 
 Please see [herobrain](https://github.com/freshollie/herobrain) documentation
-on information on connecting herobrain to hqhero
+for further information on connecting herobrain to hqhero
 
 ### Commands
 
