@@ -58,11 +58,21 @@ then routed to via a reverse proxy.
 
 In this example, hqhero is designed for /uk /us and /de.
 
+When deploying, please remove the `gtag` in `main.ts` from your client.
+Feel free to add your own.
+
 ## HQhero.com
 
 hqhero.com is the current host of HQhero. We currently receive 600+ users a day, with a viewership in 80+ countries.
 
 We opensourced HQhero in the hope that it is useful for others to read or take inspiration from
+
+## Contributing
+
+Contributing is welcomed, but not needed. HQhero is a completed project. [herobrain](https://github.com/freshollie/herobrain) is where contribution
+should be aimed at to make the quiz prediction better.
+
+However, please submit feel free any pull requests with features or bug fixes.
 
 ## License
 
