@@ -34,6 +34,12 @@
     font-size: 0.8rem;
 }
 
+.bottom>.disclaimer>.source-link {
+    text-decoration: None;
+    color: white;
+    font-size: 1rem;
+}
+
 .pre-game-status {
     color: white;
     font-size: 3rem;
@@ -44,6 +50,11 @@
     color: white;
     font-size: 2rem;
     margin: 0.5rem;
+}
+
+.top>.flags-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .flags>a>img {
@@ -295,5 +306,8 @@
 @media screen and (max-width: 600px) {
     .bottom>.disclaimer {
         font-size: 0.5rem;
+    }
+    .bottom>.disclaimer>.source-link {
+        font-size: 0.8rem;
     }
 }
