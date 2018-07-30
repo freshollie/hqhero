@@ -3,7 +3,7 @@
 # HQhero
 
 Your quiz hero. A lightweight and responsive frontend 
-for a quiz prediction robot.
+for a quiz prediction robot. [Demo](https://hqhero.com/training)
 
 ## Running
 
