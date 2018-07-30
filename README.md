@@ -21,10 +21,12 @@ hqhero.com uses [herobrain](https://github.com/freshollie/herobrain) as a proces
 Method | URI | Body | Description
 --- | --- | --- | ---
 POST | /hero/waiting | `{"info": {"prize"?: string, "nextGame"?: string}}` | Waiting for the next game, prize and next game are optional
+POST | /hero/starting | `{"info": {}}` | The game is starting
 POST | /hero/round | `{"info": {"numRounds": number, "question": {"question": string, "choices": string[]}, "num": number, roundNum: number}}` | Next round has started
 POST | /hero/analysis | `{"info": AnalysisObject}}` | Analysis of the round, not implimented
 POST | /hero/prediction | `{"info": {"answers": Dict<string,number>, "best": string, "speed": number}}` | Prediction of choices
-POST | /hero/conclusion | `{"info": {"eleminated": number, "advancing": number, "answer": string, "answers": Dict<string,number>}}` | Conclusion of round. `answer` and `answers` are the only implimented data keys. Others are broadcast but not used on the front-end
+POST | /hero/answers | `{"info": {"eleminated": number, "advancing": number, "answer": string, "answers": Dict<string,number>}}` | Conclusion of round. `answer` and `answers` are the only implimented data keys. Others are broadcast but not used on the front-end
+POST | /hero/ended | `{"info": {}}` | Not implimented, game transisions using `waiting`
 
 ## Deployment
 
@@ -33,7 +35,7 @@ POST | /hero/conclusion | `{"info": {"eleminated": number, "advancing": number, 
 Deploying this webapp as a container is the recommended practice.
 
 [herobrain](https://github.com/freshollie/herobrain) should be pointed
-towards your hqhero service.
+towards your `hqhero` service.
 
 HQhero is designed to only have a single service running. It is
 designed with a reverse proxy in mind for routing. Multiple HQhero 
