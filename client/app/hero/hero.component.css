@@ -37,7 +37,6 @@
 .bottom>.disclaimer>.source-link {
     text-decoration: None;
     color: white;
-    font-size: 1rem;
 }
 
 .pre-game-status {
@@ -306,8 +305,5 @@
 @media screen and (max-width: 600px) {
     .bottom>.disclaimer {
         font-size: 0.5rem;
-    }
-    .bottom>.disclaimer>.source-link {
-        font-size: 0.8rem;
     }
 }
