@@ -5,14 +5,26 @@
 Your quiz hero. A lightweight and responsive frontend 
 for a quiz prediction robot.
 
+## Running
+
+`npm` is used to manage the dependencies of HQhero.
+
+`npm install` will install all dependencies
+
+### Commands
+
+- `npm start` to build the client and start the server in development mode
+- `npm run build-client` to build the client for distribution
+- `npm run build-server` to build the server for distribution
+- `node server-build/server.js` to run the built server and client
+
 ## Technicals
 
 HQhero uses Websockets to transmit the information quickly, easily, and efficiently.
 
-Requires a quiz processor to transmit answer predictions and other
-information about the game to the backend. The processor sends events 
-to the hero on the backend, where he will then broadcast those events 
-to all connected users.
+It requires a quiz processor to transmit answer predictions and other
+information about the game to the service. The processor sends events 
+to hqhero, where it will then broadcast those events to all connected users.
 
 hqhero.com uses [herobrain](https://github.com/freshollie/herobrain) as a processor.
 
@@ -23,12 +35,10 @@ Method | URI | Body | Description
 POST | /hero/waiting | `{"info": {"prize"?: string, "nextGame"?: string}}` | Waiting for the next game, prize and next game are optional
 POST | /hero/starting | `{"info": {}}` | The game is starting
 POST | /hero/round | `{"info": {"numRounds": number, "question": {"question": string, "choices": string[]}, "num": number, roundNum: number}}` | Next round has started
-POST | /hero/analysis | `{"info": AnalysisObject}}` | Analysis of the round, not implimented
+POST | /hero/analysis | `{"info": AnalysisObject}` | Analysis of the round. Not used on the frontend, but broadcast.
 POST | /hero/prediction | `{"info": {"answers": Dict<string,number>, "best": string, "speed": number}}` | Prediction of choices
 POST | /hero/answers | `{"info": {"eleminated": number, "advancing": number, "answer": string, "answers": Dict<string,number>}}` | Conclusion of round. `answer` and `answers` are the only implimented data keys. Others are broadcast but not used on the front-end
 POST | /hero/ended | `{"info": {}}` | Not implimented, game transisions using `waiting`
-
-### API responses
 
 API response is always `{success: true}` for a successful input
 

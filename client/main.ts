@@ -15,8 +15,10 @@ import { environment } from './environments/environment';
 declare let gtag: Function;
 
 if (environment.production) {
+  // Please remove if not deploying to hqhero.com
   gtag('js', new Date());
   gtag('config', 'UA-121404315-1');
+  
   enableProdMode();
 }
 
