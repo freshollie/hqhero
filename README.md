@@ -28,6 +28,10 @@ POST | /hero/prediction | `{"info": {"answers": Dict<string,number>, "best": str
 POST | /hero/answers | `{"info": {"eleminated": number, "advancing": number, "answer": string, "answers": Dict<string,number>}}` | Conclusion of round. `answer` and `answers` are the only implimented data keys. Others are broadcast but not used on the front-end
 POST | /hero/ended | `{"info": {}}` | Not implimented, game transisions using `waiting`
 
+### API responses
+
+API response is always `{success: true}` for a successful input
+
 ## Deployment
 
 <img align="right" alt="demo" src="demo/demo.gif" height="400px">
