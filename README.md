@@ -48,11 +48,18 @@ then routed to via a reverse proxy.
 
 In this example, hqhero is designed for /uk /us and /de.
 
+## HQhero.com
+
+hqhero.com is the current host of HQhero. We currently receive 600+ users a day, with a viewership in 80+ countries.
+
+We opensourced HQhero in the hope that it is useful for others to read or take inspiration from
+
 ## License
 
 HQhero is released under the MIT license. Logo is Copyright Eddie Reeder
 
 ## Credits
 
-- Oliver Bell - Backend, System Architecture, DevOps
-- Eddie Reeder - App design, Animations, Logo
+- Oliver Bell - Backend, Architecture, DevOps
+- Eddie Reeder - Frontend, Design, Animation, Logo
+
