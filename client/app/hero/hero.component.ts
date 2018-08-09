@@ -6,118 +6,23 @@
  *
  */
 
-import { Component, OnInit, ApplicationRef, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { trigger, style, transition, animate, keyframes, query } from '@angular/animations';
 import * as moment from 'moment';
 import * as NoSleep from 'nosleep.js';
+import { webSocket } from 'rxjs/webSocket';
+import { retry } from 'rxjs/operators';
+import { Subject } from 'rxjs/internal/Subject';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 /**
  * The connection to the hero
  */
-class HeroSocket {
-  private static path = "/socket/hero";
 
-  /**
-   * Get the full socket path using the
-   * current host and the protocol
-   */
-  private static getSocketURI(): string {
-    const loc = window.location; 
-    let uri;
-    
-    // When testing the socket is reconfigured based
-    // on our protocol
-    if (loc.protocol === "https:") {
-        uri = "wss://";
-    } else {
-      uri = "ws://";
-    }
-    const pathItems = window.location.pathname.split("/");
-    pathItems.pop();
-
-    uri += loc.host + pathItems.join("/") + HeroSocket.path;
-    return uri;
-  }
-
-  // Represents if a connection is currently present
-  private connection = false;
-  private reconnectAttempts = 0;
-
-  private onStateCallback;
-  private onConnectionLostCallback;
-  private onConnectedCallback;
-
-  constructor(
-      onStateCallback: Function, 
-      connectedCallback: Function, 
-      connectionLostCallback: Function
-    ) {
-    this.onStateCallback = onStateCallback;
-    this.onConnectedCallback = connectedCallback;
-    this.onConnectionLostCallback = connectionLostCallback;
-  }
-
-  /**
-   * Initialise the connection, reconnecting
-   * after connection failures
-   */
-  public initialise(): void {
-    this.connect();
-  }
-
-  /**
-   * Connect to the socket, reconnecting
-   * on failure
-   */
-  private connect() {
-    const socket = new WebSocket(HeroSocket.getSocketURI());
-
-    socket.onopen = () => {
-      this.onOpen();
-    }
-
-    socket.onmessage = (message) => {
-      this.onMessage(message);
-    };
-
-    socket.onclose = () => {
-      this.onClose();
-    }
-  }
-
-  private onOpen() {
-    this.reconnectAttempts = 0;
-    this.connection = true;
-    this.onConnectedCallback();
-  }
-
-  private onMessage(message: Object) {
-    if (message["data"]) {
-      this.onStateCallback(JSON.parse(message["data"]));
-    }
-  }
-
-  /**
-   * When the connection closes, try
-   * to re-initialise 5 times, before
-   * emmiting a connection lost event
-   */
-  private onClose() {
-    if (!this.connection) {
-      this.reconnectAttempts += 1;
-      if (this.reconnectAttempts > 5) {
-        this.onConnectionLostCallback();
-      }
-      setTimeout(() => {this.connect()}, 1000);
-    } else {
-      this.connection = false;
-      this.initialise();
-    }
-  }
-}
 
 @Component({
   selector: 'app-hero',
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css'],
   animations: [
@@ -133,6 +38,7 @@ class HeroSocket {
   ]
 })
 export class HeroComponent implements OnInit {
+  private static SOCKET_PATH = "/socket/hero";
 
   public STATE_NONE = "";
   public STATE_INITIALISING = "initialising";
@@ -160,25 +66,61 @@ export class HeroComponent implements OnInit {
   public choices: Object[] = [];
   public analysis: Object = {};
 
-  public blinkState = "inactive";
-
-  private heroSocket = new HeroSocket(
-    (state: Object) => {this.onHeroData(state)}, 
-    () => {this.onConnected()},
-    () => {this.onConnectionLost()}
-  );
+  public blinkState = "inactive"; 
 
   // Represents the connection status to the front-end
   public connected = false;
   private wakelock;
 
-  constructor(private applicationRef: ApplicationRef) {}
+  constructor(private location: Location) {}
 
   ngOnInit(): void {
-    this.heroSocket.initialise();
+    this.startSocket();
     this.blinkLoop(); 
 
     this.wakelock = new NoSleep.default();
+    this.wakelock.enable();
+  }
+
+  /**
+   * Get the full socket path using the
+   * current host and the protocol
+   */
+  private getSocketAddress(): string {
+    let uri;
+    
+    // When testing the socket is reconfigured based
+    // on our protocol
+    if (window.location.protocol === "https:") {
+        uri = "wss://";
+    } else {
+      uri = "ws://";
+    }
+    const pathItems = window.location.pathname.split("/");
+    pathItems.pop();
+
+    uri += window.location.host + this.location.prepareExternalUrl(HeroComponent.SOCKET_PATH)
+    return uri;
+  }
+
+  private startSocket() {
+    const onOpen = new Subject<object>();
+    onOpen.asObservable().subscribe(() => {
+      this.onConnected();
+    });
+    const onClose = new Subject<object>();
+    onClose.asObservable().subscribe(() => {
+      this.onConnectionLost();
+    });
+
+    webSocket({
+      openObserver: onOpen,
+      closeObserver: onClose,
+      url: this.getSocketAddress()
+    }).pipe(retry())
+      .subscribe((data) => {
+        this.onHeroData(data); 
+      });
   }
 
   @HostListener('click')
