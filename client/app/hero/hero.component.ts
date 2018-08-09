@@ -108,14 +108,14 @@ export class HeroComponent implements OnInit {
     onOpen.asObservable().subscribe(() => {
       this.onConnected();
     });
-    const onClose = new Subject<object>();
+    const onClose = new Subject<void>();
     onClose.asObservable().subscribe(() => {
       this.onConnectionLost();
     });
 
     webSocket({
       openObserver: onOpen,
-      closeObserver: onClose,
+      closingObserver: onClose,
       url: this.getSocketAddress()
     }).pipe(retry())
       .subscribe((data) => {
