@@ -5,6 +5,13 @@
 Your quiz hero. A lightweight and responsive frontend 
 for a quiz prediction robot. [Demo](https://hqhero.com/training)
 
+## Builds:
+
+Branch | Status 
+-------|--------
+Master | [![Build Status](https://dev.azure.com/hqhero/hqhero/_apis/build/status/freshollie.hqhero?branchName=master)](https://dev.azure.com/hqhero/hqhero/_build/latest?definitionId=1&branchName=master)
+Develop | [![Build Status](https://dev.azure.com/hqhero/hqhero/_apis/build/status/freshollie.hqhero?branchName=develop)](https://dev.azure.com/hqhero/hqhero/_build/latest?definitionId=1&branchName=develop)
+
 ## Running
 
 `npm` is used to manage the dependencies of HQhero.
