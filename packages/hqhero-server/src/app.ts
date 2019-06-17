@@ -27,7 +27,7 @@ app.use(morgan('tiny', {
 }));
 
 // Serve the angular files
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Parse all bodies as JSON
 app.use(bodyParser.json());
