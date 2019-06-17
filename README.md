@@ -14,19 +14,19 @@ Develop | [![Build Status](https://dev.azure.com/hqhero/hqhero/_apis/build/statu
 
 ## Running
 
-`npm` is used to manage the dependencies of HQhero.
+`yarn` and `lerna` are used to manage the dependencies of HQhero.
 
-`npm install` will install all dependencies
+`yarn` will install all dependencies (including `lerna`)
 
 Please see [herobrain](https://github.com/freshollie/herobrain) documentation
 for further information on connecting herobrain to hqhero
 
 ### Commands
 
-- `npm start` to build the client and start the server in development mode
-- `npm run build-client` to build the client for distribution
-- `npm run build-server` to build the server for distribution
-- `node server-build/server.js` to run the built server and client
+- `yarn start` to build the client and start the server in development mode
+- `yarn watch` is recommeded for development
+- `yarn build` to build both the client and server for distribution
+- `node packages/hqhero-server/dist/server.js` to run the built server and client
 
 ## Technicals
 
