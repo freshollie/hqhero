@@ -1,4 +1,4 @@
-<img align="right" alt="icon" src="client/assets/icons/android-chrome-384x384.png" height="150px">
+<img align="right" alt="icon" src=".assets/icon.png" height="150px">
 
 # HQhero
 
@@ -54,7 +54,7 @@ API response is always `{success: true}` for a successful input
 
 ## Deployment
 
-<img align="right" alt="demo" src="demo/demo.gif" height="400px">
+<img align="right" alt="demo" src=".assets/demo.gif" height="400px">
 
 Deploying this webapp as a container is the recommended practice.
 
