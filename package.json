@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "scripts": {
     "lerna": "lerna",
-    "build": "lerna run build",
+    "build": "lerna run build --stream --concurrency 2",
     "build:server": "lerna exec 'yarn build' --scope=hqhero-server",
     "build:client": "lerna exec 'yarn build' --scope=hqhero-client",
     "build:client:dev": "lerna exec 'yarn build:dev' --scope=hqhero-client",
