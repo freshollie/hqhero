@@ -2,8 +2,13 @@
   "name": "hqhero-client",
   "version": "1.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "ng build --prod --build-optimizer --base-href ./"
+    "ng": "ng",
+    "build:dev": "ng build",
+    "build": "ng build --prod --build-optimizer --base-href ./",
+    "watch": "ng build --watch",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "keywords": [],
   "author": "",
