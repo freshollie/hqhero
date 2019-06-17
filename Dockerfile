@@ -9,11 +9,11 @@ COPY packages/hqhero-client/package.json ./packages/hqhero-client/
 
 RUN yarn install --frozen-lockfile
 
+### Build the client ###
 FROM buildenv as client-build
 
 COPY packages/hqhero-client/ ./packages/hqhero-client/
 RUN yarn lerna exec "yarn build" --scope=hqhero-client
-
 
 ### Build the server ###
 FROM buildenv as server-build
@@ -23,15 +23,13 @@ COPY packages/hqhero-server/ ./packages/hqhero-server/
 RUN yarn lerna exec "yarn build" --scope=hqhero-server
 
 ### Combine the builds ###
-FROM node:8
+FROM node:8-alpine
 WORKDIR /hqhero
 
 COPY --from=server-build /build/packages/hqhero-server/node_modules server/node_modules
 
 COPY --from=client-build /build/packages/hqhero-client/dist dist/
 COPY --from=server-build /build/packages/hqhero-server/dist server/
-
-RUN ls -la server
 
 ENV NODE_ENV=production
 ENTRYPOINT node /hqhero/server/server.js
