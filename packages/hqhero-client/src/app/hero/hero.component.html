@@ -5,35 +5,8 @@
               & Eddie Reeder <edlilkid@hotmail.co.uk>
 -->
 
-<div class="top">
-  <div class="flags">
-    <a href="/us">
-      <img class="icon" src="assets/images/us-flag.svg">
-    </a>
-    <a href="/uk">
-      <img class="icon" src="assets/images/uk-flag.svg">
-    </a>
-    <a href="/de">
-      <img class="icon" src="assets/images/de-flag.svg">
-    </a>
-  </div>
-  
-  <div class="question-number animated bounceIn" 
-       *ngIf="gameActive">
-    Q {{state == 'starting' ? '-' : questionNum}}
-  </div>
-</div>
-
 <div class="main">
-  <div class="pre-game-status" *ngIf="!connected">
-    Please wait...
-  </div>
-
-  <div class="pre-game-status" *ngIf="state == STATE_INITIALISING && connected">
-    Initialising...
-  </div>
-
-  <div class="hero animated bounceInUp" *ngIf="state != STATE_INITIALISING && connected">
+  <div class="hero animated bounceInUp">
     <div class="mask" [@blinkAnimation]="blinkState" (@blinkAnimation.done)="resetBlinkState()">
       <div class="band">
         <div class="outer"></div>
@@ -41,53 +14,40 @@
         <div class="outer"></div>
       </div>
       <div class="face">
-        <div class="eyes" [ngClass]="{'sleeping': state == STATE_WAITING}">
+        <div class="eyes">
           <div class="left"></div>
           <div class="right"></div>
         </div>
-        <div class="snore" *ngIf="state == STATE_WAITING">
-          <div>Z</div>
-          <div>Z</div>
-        </div>
-        <div class="cheeks" [ngClass]="{'smiling': wasCorrect()}">
+        <div class="cheeks" [ngClass]="{'smiling': smiling}">
           <div class="left"></div>
           <div class="right"></div>
         </div>
-        <div class="eyebrows" [ngClass]="{'thonking': state == STATE_THONKING, 'sad': wasIncorrect()}">
+        <div class="eyebrows" [ngClass]="{'sad': !smiling}">
           <div class="left"></div>
           <div class="right"></div>
         </div>
       </div>
     </div>
 
-    <div class="game-info" *ngIf="state == STATE_WAITING">
-      <p *ngIf="wait">Next game {{wait}}</p>
-      <div *ngIf="wait" class="prize">
-        <img class="icon" src="assets/images/banner.svg">
-        <p>{{prize}}</p>
-      </div>
-      <p *ngIf="!wait">
-        No game scheduled
+    <div class="question">
+      <p>Dear player's</p>
+      <p>It has been nothing short of an honour to play alongside you for all of these years, 
+        however the time have come for this project to come to an end - 
+        no matter how much it pains me 
       </p>
+      <p>I wish you all the best</p>
     </div>
-  
-    <div class="game-info" *ngIf="state == STATE_STARTING">
-      Game is starting soon
-    </div>
-
-    <div class="question" *ngIf="state != STATE_WAITING && state != STATE_STARTING">{{question}}</div>
-
-    <div class="choices" *ngIf="state != STATE_WAITING && state != STATE_STARTING">
-      <div *ngFor="let choice of choices" 
-           [ngClass]="{
-             'best-choice': choice.best, 
-             'correct': choice.correct, 
-             'incorrect': (choice.best && (choice.correct == false))
-            }" 
-           [style.background-position]="calculateChoiceBackgroundPosition(choice)">
+    <div class="choices">
+      <div [ngClass]="{'incorrect': !smiling}">
         <div class="content">
-          <span>{{choice.value}}</span>
-          <strong *ngIf="choice.prediction != undefined">{{choice.prediction}}%</strong>
+          <span>With love</span>
+        </div>
+      </div>
+
+      <div [ngClass]="{'correct': smiling, 'bestchoice': smiling}">
+        <div class="content">
+          <span><a href="https://github.com/eddiereeder/">Eddie</a> & <a href="https://github.com/freshollie/">Ollie</a></span>
+          <strong>100%</strong>
         </div>
       </div>
     </div>

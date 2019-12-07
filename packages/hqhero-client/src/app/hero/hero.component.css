@@ -115,8 +115,7 @@
 }
 
 .hero>.question {
-    text-align: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #242352;
 }
@@ -150,6 +149,15 @@
     color: #242352;
     display: flex;
     justify-content: space-between;
+}
+
+.choices>div>.content a{
+    text-decoration: underline;
+    color: black;
+}
+
+.choices>div>.content a:hover{
+    color: white;
 }
 
 /* Styling The Mask 1996 starring Jim Carrey */

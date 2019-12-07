@@ -67,6 +67,8 @@ export class HeroComponent implements OnInit {
   public analysis: Object = {};
 
   public blinkState = "inactive"; 
+  public smiling = false;
+  public showAuthors = false;
 
   // Represents the connection status to the front-end
   public connected = false;
@@ -75,8 +77,8 @@ export class HeroComponent implements OnInit {
   constructor(private location: Location) {}
 
   ngOnInit(): void {
-    this.startSocket();
     this.blinkLoop(); 
+    setTimeout(() => this.smiling = true, 3000);
 
     this.wakelock = new NoSleep.default();
     this.wakelock.enable();
