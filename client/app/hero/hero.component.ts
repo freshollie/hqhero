@@ -1,13 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { trigger,style,transition,animate,keyframes,query,group,state } from '@angular/animations';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.css']
+  styleUrls: ['./hero.component.css'],
+  animations: [
+    trigger('blinkAnimation', [
+      transition('* => active', query('.eyes', [
+        animate(200, keyframes([
+          style({height: '2rem', offset: 0}),
+          style({height: '0rem', offset: 0.5}),
+          style({height: '2rem', offset: 1}),
+        ]))
+      ]))
+    ]),
+  ]
 })
+
 export class HeroComponent implements OnInit {
+
+  // Variables for testing
+  /*
+  public status = "testing";
+  public question = "Is this the head?";
+  public choices: Object[] = [];
+  public smileState = "inactive";
+  public blinkState = "inactive";
+  */
 
   public status = "";
   public wait = "";
@@ -16,6 +38,8 @@ export class HeroComponent implements OnInit {
   public question = "";
   public choices: Object[] = [];
   public analysis: Object = {};
+  public smileState = "inactive";
+  public blinkState = "inactive";
 
   public objectKeys = Object.keys;
   
@@ -28,7 +52,7 @@ export class HeroComponent implements OnInit {
 
   private socket: WebSocket;
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
   
   private getWebsocketUri(): string {
     let loc = window.location, uri;
@@ -73,6 +97,7 @@ export class HeroComponent implements OnInit {
 
   ngOnInit(): void {
     this.connect();
+    this.blinkLoop();
   }
 
   onData(data): void {
@@ -123,5 +148,50 @@ export class HeroComponent implements OnInit {
     }
     let value = 100 - choice.prediction;
     return value + '% 100%';
+  }
+
+  public isCorrect() {
+    for (let choice of this.choices) {
+      if (choice['best'] && choice['correct']) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public isIncorrect() {
+    for (let choice of this.choices) {
+      if (choice['correct']) {
+        if (!choice['best']) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    return false;
+  }
+
+  private blinkLoop() {
+    setTimeout(() => {
+      this.blink();
+      this.blinkLoop();
+    }, 2000 + Math.random() * 8000);
+  }
+
+  public blink() {
+    this.blinkState = 'active';
+  }
+
+  public resetBlinkState() {
+    this.blinkState = 'inactive';
+  }
+
+  public smile() {
+    this.smileState = 'active';
+  }
+
+  public resetSmileState() {
+    this.smileState = 'inactive';
   }
 }
