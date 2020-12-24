@@ -6,8 +6,13 @@
   Initialising...
 </div>
 
-<div class="pre-game-status" *ngIf="status == 'waiting'">
-  Next game {{wait}}, Prize: {{prize}}
+<div *ngIf="status == 'waiting'">
+  <div *ngIf="wait">
+    Next game {{wait}}, Prize: {{prize}}
+  </div>
+  <div *ngIf="!wait">
+    No game scheduled
+  </div>
 </div>
 
 <div class="pre-game-status" *ngIf="status == 'starting'">
