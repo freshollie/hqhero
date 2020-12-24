@@ -28,7 +28,7 @@ WORKDIR /hqhero
 
 COPY --from=server-build /build/packages/hqhero-server/node_modules server/node_modules
 
-COPY --from=client-build /build/packages/hqhero-client/dist dist/
+COPY --from=client-build /build/packages/hqhero-client/dist public/
 COPY --from=server-build /build/packages/hqhero-server/dist server/
 
 ENV NODE_ENV=production
