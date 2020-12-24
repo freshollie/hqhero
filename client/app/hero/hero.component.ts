@@ -22,15 +22,6 @@ import * as moment from 'moment';
 
 export class HeroComponent implements OnInit {
 
-  // Variables for testing
-  /*
-  public status = "testing";
-  public question = "Is this the head?";
-  public choices: Object[] = [];
-  public smileState = "inactive";
-  public blinkState = "inactive";
-  */
-
   public status = "";
   public wait = "";
   public prize = 0;
@@ -38,7 +29,6 @@ export class HeroComponent implements OnInit {
   public question = "";
   public choices: Object[] = [];
   public analysis: Object = {};
-  public smileState = "inactive";
   public blinkState = "inactive";
 
   public objectKeys = Object.keys;
@@ -174,7 +164,9 @@ export class HeroComponent implements OnInit {
 
   private blinkLoop() {
     setTimeout(() => {
-      this.blink();
+      if (this.status != 'waiting') {
+        this.blink();
+      }
       this.blinkLoop();
     }, 2000 + Math.random() * 8000);
   }
@@ -185,13 +177,5 @@ export class HeroComponent implements OnInit {
 
   public resetBlinkState() {
     this.blinkState = 'inactive';
-  }
-
-  public smile() {
-    this.smileState = 'active';
-  }
-
-  public resetSmileState() {
-    this.smileState = 'inactive';
   }
 }
